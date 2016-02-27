@@ -6,6 +6,8 @@
 //  Copyright © 2016 Ethan Neff. All rights reserved.
 //
 
+// TODO: memory leak when moving and dropping
+
 import UIKit
 
 class ReorderTableView: UITableView {
@@ -44,6 +46,7 @@ class ReorderTableView: UITableView {
   }
   
   
+  
   // MARK: - GESTURE
   func reorderGestureRecognized(gesture: UILongPressGestureRecognizer) {
     // long press on cell
@@ -60,36 +63,67 @@ class ReorderTableView: UITableView {
   }
   
   func reorderGestureBegan(location location: CGPoint) {
+    // start looping for scrolling (because want to scroll when non-moving near edges [UIGestureRecognizerState.Change won't be called])
+    reorderGesturePressed = true
+    reorderScrollLink = CADisplayLink(target: self, selector: "reorderScrollTableWithCell")
+    reorderScrollLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
+    
     // alert the controller
     if let found = super.delegate?.respondsToSelector("reorderBefore:") where found {
       super.delegate?.performSelector("reorderBefore:", withObject:  indexPathForRowAtPoint(location))
     }
     
     // if the controller changes the initial index
-    if let initialIndex = reorderInitalIndexPath {
-      // index update if out of bounds
-      let section = initialIndex.section
-      let rows = numberOfRowsInSection(section)
-      if reorderInitalIndexPath?.row > rows {
-        reorderInitalIndexPath = NSIndexPath(forRow: rows, inSection: section)
+    if let passedInitialIndex = reorderInitalIndexPath {
+      // update index if out of bounds
+      let section = passedInitialIndex.section
+      let touchIndexPath = indexPathForRowAtPoint(location) ?? NSIndexPath(forRow: numberOfRowsInSection(section)-1, inSection: section)
+      
+      if let cell = cellForRowAtIndexPath(passedInitialIndex) {
+        
+        // save initial and previous indexes
+        reorderInitalIndexPath = reorderInitalIndexPath ?? touchIndexPath
+        reorderPreviousIndexPath = touchIndexPath
+        
+        // reorder
+        moveRowAtIndexPath(passedInitialIndex, toIndexPath: touchIndexPath)
+        
+        
+        // create snapshot cell (the pickup cell)
+        var center = cell.center
+        reorderSnapshot = reorderCreateCellSnapshot(cell)
+        reorderSnapshot.center = center
+        reorderSnapshot.alpha = 0.0
+        addSubview(reorderSnapshot)
+        // animate the snapshot rise
+        UIView.animateWithDuration(0.35, animations: {
+          center.y = location.y
+          self.reorderSnapshot.center = center
+          self.reorderSnapshot.transform = CGAffineTransformMakeScale(1.05, 1.05)
+          self.reorderSnapshot.alpha = 0.8
+          
+          // hide the below cell (it will be there the entire time)
+          cell.alpha = 0.0
+          }, completion: { (finished) -> Void in
+            if finished {
+              cell.hidden = true
+            }
+        })
       }
+      
+      
     } else {
       reorderPickUpCell(location: location)
     }
   }
   
-  
   func reorderPickUpCell(location location: CGPoint) {
     if let touchIndexPath = indexPathForRowAtPoint(location) {
       
       // save initial and previous indexes
-      reorderGesturePressed = true
       reorderInitalIndexPath = touchIndexPath
       reorderPreviousIndexPath = touchIndexPath
-      
-      // start looping for scrolling (because want to scroll when non-moving near edges [UIGestureRecognizerState.Change won't be called])
-      reorderScrollLink = CADisplayLink(target: self, selector: "reorderScrollTableWithCell")
-      reorderScrollLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
+
       // make cell snapshot (pickup cell)
       if let cell = cellForRowAtIndexPath(reorderInitalIndexPath!) {
         var center = cell.center
@@ -98,7 +132,7 @@ class ReorderTableView: UITableView {
         reorderSnapshot.alpha = 0.0
         addSubview(reorderSnapshot)
         
-        UIView.animateWithDuration(0.25, animations: {
+        UIView.animateWithDuration(0.35, animations: {
           // animate the snapshot rise
           center.y = location.y
           self.reorderSnapshot.center = center
@@ -151,24 +185,25 @@ class ReorderTableView: UITableView {
       reorderGesturePressed = false
       cell.hidden = false
       cell.alpha = 0.0
-      UIView.animateWithDuration(0.25, animations: {
+      UIView.animateWithDuration(0.35, animations: {
         self.reorderSnapshot.center = cell.center
         self.reorderSnapshot.transform = CGAffineTransformIdentity
         self.reorderSnapshot.alpha = 0.0
         cell.alpha = 1.0
         }, completion: { (finished) -> Void in
           if finished {
+            // alert the controller
+            if let found = super.delegate?.respondsToSelector("reorderAfter:toIndex:") where found {
+              super.delegate?.performSelector("reorderAfter:toIndex:", withObject: self.reorderInitalIndexPath, withObject: self.reorderPreviousIndexPath)
+            }
+            
             // clear memory
+            cell.hidden = false
             self.reorderScrollRate = 0
             self.reorderScrollLink.invalidate()
             self.reorderInitalIndexPath = nil
             self.reorderPreviousIndexPath = nil
             self.reorderSnapshot.removeFromSuperview()
-            
-            // alert the controller
-            if let found = super.delegate?.respondsToSelector("reorderAfter") where found {
-              super.delegate?.performSelector("reorderAfter")
-            }
           }
       })
     }

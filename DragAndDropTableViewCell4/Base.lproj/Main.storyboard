@@ -8,7 +8,7 @@
         <!--Table View Controller-->
         <scene sceneID="gUK-Ua-8Yb">
             <objects>
-                <tableViewController id="prC-Oe-zDt" customClass="TableViewController" customModule="DragAndDropTableViewCell1" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="prC-Oe-zDt" customClass="TableViewController" customModule="DragAndDropTableViewCell4" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="vZl-mD-Mz8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,7 +29,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="fGb-f6-pZ7">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="6qb-Zn-XnJ"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="6qb-Zn-XnJ">
+                            <connections>
+                                <action selector="left:" destination="prC-Oe-zDt" id="MFs-KJ-jjt"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" id="vpY-Lk-fAH">
                             <connections>
                                 <action selector="right:" destination="prC-Oe-zDt" id="SjF-tH-jUy"/>
@@ -39,7 +43,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2aY-fJ-igp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="800" y="240"/>
+            <point key="canvasLocation" x="793" y="240"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Que-yG-BWd">
