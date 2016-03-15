@@ -8,12 +8,10 @@
 
 import UIKit
 
-class TableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class TableViewController: UITableViewController {
   // MARK: - PROPERTIES
   var realData : [Data] = []
   var viewData : [Data] = []
-
-  
   
   // MARK: - INIT
   override func viewDidLoad() {
@@ -23,7 +21,7 @@ class TableViewController: UITableViewController, UIGestureRecognizerDelegate {
     tableView = ReorderTableView(tableView: tableView)
     
     // nav controller properties
-    //    navigationController?.navigationBarHidden = true
+    navigationController?.navigationBarHidden = true
     
     // table properties
     tableView.contentInset = UIEdgeInsetsZero
@@ -32,9 +30,14 @@ class TableViewController: UITableViewController, UIGestureRecognizerDelegate {
     tableView.layoutMargins = UIEdgeInsetsZero
     tableView.tableFooterView = UIView(frame: CGRectZero)
     
+    // collpase
+    let collpase = UITapGestureRecognizer(target: self, action: "doubleTapGesture:")
+    collpase.numberOfTapsRequired = 2
+    tableView.addGestureRecognizer(collpase)
+    
+    // data
     addData()
   }
-  
   
   
   // MARK: - BUTTONS
@@ -46,55 +49,70 @@ class TableViewController: UITableViewController, UIGestureRecognizerDelegate {
   }
   
   
+  // MARK: - DOUBLE TAP
+  func doubleTapGesture(touch: UITapGestureRecognizer) {
+    // toggle collapse/expand section
+    let location = touch.locationInView(tableView)
+    if let index = tableView.indexPathForRowAtPoint(location),
+      let cell = tableView.cellForRowAtIndexPath(index) {
+        let viewCellData = viewData[index.row]
+        viewCellData.collapsed = !viewCellData.collapsed
+        if viewCellData.collapsed {
+          collapseSection(index: index, cell: cell)
+        } else {
+          expandSection(index: index, cell: cell)
+        }
+    }
+  }
   
-  // MARK: - COLLAPSE CELL
-  func collapseBelow(indexRow indexRow: Int) {
-    var indexDown = indexRow+1
-    while true {
-      if indexDown == viewData.count {
+  func collapseSection(index index: NSIndexPath, cell: UITableViewCell) {
+    let row = index.row
+    let section = viewData[row]
+    let next = row+1
+    var nextSection = false
+    while !nextSection {
+      if next > viewData.count-1 {
         break
       }
-      if viewData[indexDown].indent != viewData[indexRow].indent {
-        collapseRemoveRow(indexRow: indexDown)
+      
+      if viewData[next].indent > section.indent {
+        tableViewRemoveRow(indexRow: next)
       } else {
-        indexDown++
+        nextSection = true
       }
     }
   }
   
-  func collapseAbove(indexRow indexRow: Int) -> NSIndexPath {
-    var indexUp = indexRow-1
-    var indexChange = 0
-    while true {
-      if indexUp == -1 {
-        break
+  func expandSection(index index: NSIndexPath, cell: UITableViewCell) {
+    let row = index.row
+    let section = viewData[row]
+    
+    var headerFound = false
+    var contents = [Data]()
+    for i in 0...realData.count-1 {
+      if realData[i] === section {
+        headerFound = true
+        continue
+      } else if headerFound {
+        if realData[i].indent > section.indent {
+          contents.insert(realData[i], atIndex: 0)
+        } else {
+          break
+        }
       }
-      if viewData[indexUp].indent != viewData[indexRow].indent {
-        collapseRemoveRow(indexRow: indexUp)
-        indexChange++
-      }
-      indexUp--
     }
     
-    return NSIndexPath(forItem: indexRow-indexChange, inSection: 0)
+    for item in contents {
+      tableViewInsertRow(item: item,indexRow: row+1)
+    }
   }
-  
-  func collapseRemoveRow(indexRow indexRow: Int) {
-    tableView.beginUpdates()
-    viewData.removeAtIndex(indexRow)
-    tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: indexRow, inSection: 0)], withRowAnimation: .Fade)
-    tableView.endUpdates()
-  }
-  
-  // MARK: - EXPAND CELL
-  
   
   
   // MARK: - REORDER
   func reorderBefore(index: NSIndexPath) {
     // collapse all rows that are not the correct indent level
-    collapseBelow(indexRow: index.row)
-    let newIndex = collapseAbove(indexRow: index.row)
+    collapseCellsBelow(indexRow: index.row)
+    let newIndex = collapseCellsAbove(indexRow: index.row)
     
     // pass back to tableview
     if let tableView = tableView as? ReorderTableView {
@@ -103,35 +121,186 @@ class TableViewController: UITableViewController, UIGestureRecognizerDelegate {
   }
   
   func reorderAfter(fromIndex: NSIndexPath, toIndex:NSIndexPath) {
-    // update view data (reorder based on direction moved)
-    let ascending = fromIndex.row < toIndex.row ? true : false
-    let from = ascending ? fromIndex.row : fromIndex.row+1
-    let to = ascending ? toIndex.row+1 : toIndex.row
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      var realIndex = toIndex
+      if fromIndex.row != toIndex.row {
+        realIndex = self.reorderUpdateRealData(fromIndex: fromIndex, toIndex: toIndex)
+      }
+      dispatch_async(dispatch_get_main_queue()) {
+        print(self.viewData[toIndex.row])
+        self.viewData = self.realData
+        self.tableView.reloadData()
+        self.tableView.scrollToRowAtIndexPath(realIndex, atScrollPosition: .Top, animated: false)
+        
+//        UIView.transitionWithView(<#T##view: UIView##UIView#>, duration: <#T##NSTimeInterval#>, options: UIViewAnimationOptions.CurveEaseIn, animations: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+   
+        })
+        
+        UIView.transitionWithView(self.tableView,
+          duration:0.35,
+          options:UIViewAnimationOptions.CurveEaseInOut,
+          animations:
+          { () -> Void in
 
-    
-    print(viewData[fromIndex.row])
-    print(viewData[toIndex.row])
-    
-    print(realData[fromIndex.row])
-    print(realData[toIndex.row])
-    viewData.insert(viewData[fromIndex.row], atIndex: to)
-    viewData.removeAtIndex(from)
-    print(viewData)
-    
-    // update real data
-    
-    
-    // animate view data (expand)
-    
-    // reorder the realData
-    // update tableview
-    // animate tableview
-    
-    
-    // bring back other items and sort them
+          },
+          completion: nil);
+//        self.tableView.reloadData()
+      
+        
+//        let row = fromIndex.row < toIndex.row ? toIndex.row: toIndex.row
+//        
+//        print(self.viewData)
+//        
+//        for i in 0..<self.viewData.count {
+//          
+//          self.tableViewRemoveRow(indexRow: 0)
+//          
+//        }
+//        
+//        print( self.viewData)
+//        for i in 0..<self.realData.count {
+//          self.tableViewInsertRow(item: self.realData[i], indexRow: i)
+//          if i > realIndex.row {
+//            self.tableView.scrollToRowAtIndexPath(realIndex, atScrollPosition: .Top, animated: false)
+//          }
+//          
+//        }
+//        
+      }
+    }
   }
   
-  // MARK: - Table view data source
+  func reorderUpdateViewData(fromIndex fromIndex: NSIndexPath, toIndex:NSIndexPath) {
+    // update view data (reorder based on direction moved)
+    let ascending = fromIndex.row < toIndex.row ? true : false
+    
+    let viewFromData = viewData[fromIndex.row]
+    let viewFromIndex = ascending ? fromIndex.row : fromIndex.row+1
+    let viewToIndex = ascending ? toIndex.row+1 : toIndex.row
+    viewData.insert(viewFromData, atIndex: viewToIndex)
+    viewData.removeAtIndex(viewFromIndex)
+  }
+  
+  func reorderUpdateRealData(fromIndex fromIndex: NSIndexPath, toIndex:NSIndexPath) -> NSIndexPath {
+    // view data
+    let ascending = fromIndex.row < toIndex.row ? true : false
+    let fromViewData = viewData[fromIndex.row]
+    let toViewData = viewData[toIndex.row]
+    
+    // set real search
+    var fromRealDataStart = -1
+    var fromRealDataFinish = -1
+    var toRealDataStart = -1
+    var toRealDataFinish = -1
+    
+    var fromRealDataFinishDone = false
+    var toRealDataFinishDone = false
+    
+    // find the real indexes from the view indexes
+    for i in 0..<realData.count {
+      realData[i].collapsed = false
+      
+      if realData[i] === fromViewData {
+        fromRealDataStart = i
+      }
+      
+      if realData[i] === toViewData {
+        toRealDataStart = i
+      }
+      
+      if realData[i] !== fromViewData && fromRealDataStart != -1 && !fromRealDataFinishDone {
+        if realData[i].indent > realData[fromRealDataStart].indent {
+          fromRealDataFinish = i
+        } else {
+          fromRealDataFinish = fromRealDataFinish == -1 ? i-1 : fromRealDataFinish
+          fromRealDataFinishDone = true
+        }
+      }
+      
+      if realData[i] !== toViewData && toRealDataStart != -1 && !toRealDataFinishDone {
+        if realData[i].indent > realData[toRealDataStart].indent {
+          toRealDataFinish = i
+        } else {
+          toRealDataFinish = toRealDataFinish == -1 ? i-1 : toRealDataFinish
+          toRealDataFinishDone = true
+        }
+      }
+    }
+    // handle end indexes
+    fromRealDataFinish = fromRealDataFinish == -1 ? realData.count-1 : fromRealDataFinish
+    toRealDataFinish = toRealDataFinish == -1 ? realData.count-1 : toRealDataFinish
+    
+    // set range
+    let fromRealRange = fromRealDataStart...fromRealDataFinish
+    
+    // set real data
+    let fromRealData = realData[fromRealRange]
+    
+    // handle direction
+    let toIndex = ascending ? toRealDataFinish+1-fromRealData.count : toRealDataStart
+    
+    // update real data
+    realData.removeRange(fromRealRange)
+    realData.insertContentsOf(fromRealData, at: toIndex)
+    
+    // pass back new index
+    return NSIndexPath(forRow: toIndex, inSection: 0)
+  }
+  
+  // MARK: - COLLAPSE CELL
+  func collapseCellsBelow(indexRow indexRow: Int) {
+    let indent = viewData[indexRow].indent
+    var indexDown = indexRow+1
+    while true {
+      if indexDown == viewData.count {
+        break
+      }
+      if viewData[indexDown].indent != indent {
+        tableViewRemoveRow(indexRow: indexDown)
+      } else {
+        indexDown++
+      }
+    }
+  }
+  
+  func collapseCellsAbove(indexRow indexRow: Int) -> NSIndexPath {
+    let indent = viewData[indexRow].indent
+    var indexUp = indexRow-1
+    var indexChange = 0
+    while true {
+      if indexUp == -1 {
+        break
+      }
+      if viewData[indexUp].indent != indent {
+        tableViewRemoveRow(indexRow: indexUp)
+        indexChange++
+      }
+      indexUp--
+    }
+    
+    return NSIndexPath(forItem: indexRow-indexChange, inSection: 0)
+  }
+  
+  
+  // MARK: - TABLEVIEW MODIFICATION
+  func tableViewRemoveRow(indexRow indexRow: Int) {
+    tableView.beginUpdates()
+    viewData.removeAtIndex(indexRow)
+    tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: indexRow, inSection: 0)], withRowAnimation: .Fade)
+    tableView.endUpdates()
+  }
+  
+  func tableViewInsertRow(item item: Data, indexRow: Int) {
+    tableView.beginUpdates()
+    viewData.insert(item, atIndex: indexRow)
+    tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: indexRow, inSection: 0)], withRowAnimation: .Fade)
+    tableView.endUpdates()
+  }
+  
+  
+  
+  // MARK: - TABLEVIEW DATA SOURCE
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return viewData.count
   }
@@ -167,15 +336,19 @@ class TableViewController: UITableViewController, UIGestureRecognizerDelegate {
     var d = Data(name: "1.2.1", parent: c, indent: 2)
     var e = Data(name: "1.2.2", parent: c, indent: 2)
     var f = Data(name: "1.3.0", parent: a, indent: 1)
-    var g = Data(name: "1.4.0", parent: a, indent: 1)
+    var g = Data(name: "1.3.1", parent: f, indent: 2)
+    var h = Data(name: "1.3.2", parent: f, indent: 2)
+    var i = Data(name: "1.4.0", parent: a, indent: 1)
     
     viewData.append(a)
     viewData.append(b)
-    viewData.append(c)
-    viewData.append(d)
-    viewData.append(e)
-    viewData.append(f)
-    viewData.append(g)
+    //    viewData.append(c)
+    //    viewData.append(d)
+    //    viewData.append(e)
+    //    viewData.append(f)
+    //    viewData.append(g)
+    //    viewData.append(h)
+    viewData.append(i)
     
     a = Data(name: "2.0.0", parent: nil, indent: 0)
     b = Data(name: "2.1.0", parent: a, indent: 1)
@@ -183,15 +356,19 @@ class TableViewController: UITableViewController, UIGestureRecognizerDelegate {
     d = Data(name: "2.2.1", parent: c, indent: 2)
     e = Data(name: "2.2.2", parent: c, indent: 2)
     f = Data(name: "2.3.0", parent: a, indent: 1)
-    g = Data(name: "2.4.0", parent: a, indent: 1)
+    g = Data(name: "2.3.1", parent: f, indent: 2)
+    h = Data(name: "2.3.2", parent: f, indent: 2)
+    i = Data(name: "2.4.0", parent: a, indent: 1)
     
     viewData.append(a)
     viewData.append(b)
-    viewData.append(c)
-    viewData.append(d)
-    viewData.append(e)
-    viewData.append(f)
-    viewData.append(g)
+    //    viewData.append(c)
+    //    viewData.append(d)
+    //    viewData.append(e)
+    //    viewData.append(f)
+    //    viewData.append(g)
+    viewData.append(h)
+    viewData.append(i)
     
     a = Data(name: "3.0.0", parent: nil, indent: 0)
     b = Data(name: "4.0.0", parent: nil, indent: 0)
@@ -204,9 +381,9 @@ class TableViewController: UITableViewController, UIGestureRecognizerDelegate {
     viewData.append(a)
     viewData.append(c)
     viewData.append(d)
-    viewData.append(e)
-    viewData.append(f)
-    viewData.append(g)
+    //    viewData.append(e)
+    //    viewData.append(f)
+    //    viewData.append(g)
     viewData.append(b)
     
     
@@ -266,6 +443,7 @@ class Data: CustomStringConvertible {
   var name: String
   var parent: Data?
   var indent: Int = 0
+  var collapsed: Bool = false
   
   
   var description: String {
@@ -279,3 +457,4 @@ class Data: CustomStringConvertible {
   }
   
 }
+
