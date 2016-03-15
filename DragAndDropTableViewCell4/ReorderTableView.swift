@@ -13,19 +13,19 @@ import UIKit
 
 
 protocol ReorderTableViewDelegate: class {
-  func reorderBefore()
-  func reorderAfter()
+  func reorderBefore(fromIndexPath: NSIndexPath)
+  func reorderAfter(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath)
 }
 
 extension UITableViewController: ReorderTableViewDelegate {
-  func reorderBefore() {}
-  func reorderAfter() {}
+  func reorderBefore(fromIndexPath: NSIndexPath) {}
+  func reorderAfter(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {}
 }
 
 class ReorderTableView: UITableView {
   // MARK: - PROPERTIES
   // public
-  private weak var reorderDelegate: ReorderTableViewDelegate?
+  weak var reorderDelegate: ReorderTableViewDelegate?
   private var reorderGesture: UILongPressGestureRecognizer?
   var reorderInitalIndexPath: NSIndexPath?
   private var reorderPreviousIndexPath: NSIndexPath?
@@ -95,14 +95,10 @@ class ReorderTableView: UITableView {
     
   }
   
-  func reorderNotifyDelegateBefore() {
-    reorderDelegate?.reorderBefore()
-  }
-  
-  func reorderNotifyDelegate(notification notification: ReorderDelegateNotifications) {
+  func reorderNotifyDelegate(notification notification: ReorderDelegateNotifications, fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath?) {
     switch notification {
-    case .Before: break
-    case .After: break
+    case .Before: reorderDelegate?.reorderBefore(fromIndexPath)
+    case .After: reorderDelegate?.reorderAfter(fromIndexPath, toIndexPath: toIndexPath!)
     case .During: break
     }
   }
@@ -113,10 +109,8 @@ class ReorderTableView: UITableView {
     reorderScrollLink = CADisplayLink(target: self, selector: "reorderScrollTableWithCell")
     reorderScrollLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
     
-    // alert the controller
-    if let found = super.delegate?.respondsToSelector("reorderBefore:") where found {
-      super.delegate?.performSelector("reorderBefore:", withObject:  indexPathForRowAtPoint(touchLocation))
-    }
+    let path = indexPathForRowAtPoint(touchLocation)!
+    reorderNotifyDelegate(notification: .Before, fromIndexPath: path, toIndexPath: nil)
     
     // get touch index in view
     let touchIndexPath = indexPathForRowAtPoint(touchLocation) ?? NSIndexPath(forRow: numberOfRowsInSection(0)-1, inSection: 0)
@@ -201,10 +195,9 @@ class ReorderTableView: UITableView {
         cell.alpha = 1.0
         }, completion: { (finished) -> Void in
           if finished {
-            // alert the controller
-            if let found = super.delegate?.respondsToSelector("reorderAfter:toIndex:") where found {
-              super.delegate?.performSelector("reorderAfter:toIndex:", withObject: self.reorderInitalIndexPath, withObject: self.reorderPreviousIndexPath)
-            }
+
+            self.reorderNotifyDelegate(notification: .After, fromIndexPath: self.reorderInitalIndexPath!, toIndexPath: self.reorderPreviousIndexPath!)
+  
             
             // clear memory
             cell.hidden = false

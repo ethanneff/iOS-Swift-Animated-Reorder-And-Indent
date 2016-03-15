@@ -19,6 +19,11 @@ class TableViewController: UITableViewController {
     
     // reorder
     tableView = ReorderTableView(tableView: tableView)
+    if let tableView = tableView as? ReorderTableView {
+      tableView.reorderDelegate = self
+    }
+    
+    
     
     // nav controller properties
     navigationController?.navigationBarHidden = true
@@ -38,7 +43,6 @@ class TableViewController: UITableViewController {
     // data
     addData()
   }
-  
   
   // MARK: - BUTTONS
   @IBAction func right(button: UIBarButtonItem) {
@@ -107,34 +111,34 @@ class TableViewController: UITableViewController {
     }
   }
   
-  
-  // MARK: - REORDER
-  func reorderBefore(index: NSIndexPath) {
+    // MARK: - REORDER
+  override func reorderBefore(fromIndexPath: NSIndexPath) {
     // collapse all rows that are not the correct indent level
-    collapseCellsBelow(indexRow: index.row)
-    let newIndex = collapseCellsAbove(indexRow: index.row)
+    collapseCellsBelow(indexRow: fromIndexPath.row)
+    let newIndex = collapseCellsAbove(indexRow: fromIndexPath.row)
     
     // pass back to tableview
     if let tableView = tableView as? ReorderTableView {
       tableView.reorderInitalIndexPath = newIndex
     }
   }
-  
-  func reorderAfter(fromIndex: NSIndexPath, toIndex:NSIndexPath) {
+
+
+  override func reorderAfter(fromIndexPath: NSIndexPath, toIndexPath:NSIndexPath) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-      var realIndex = toIndex
-      if fromIndex.row != toIndex.row {
-        realIndex = self.reorderUpdateRealData(fromIndex: fromIndex, toIndex: toIndex)
+      var realIndex = toIndexPath
+      if fromIndexPath.row != toIndexPath.row {
+        realIndex = self.reorderUpdateRealData(fromIndex: fromIndexPath, toIndex: toIndexPath)
       }
       dispatch_async(dispatch_get_main_queue()) {
-        print(self.viewData[toIndex.row])
+        print(self.viewData[toIndexPath.row])
         self.viewData = self.realData
         self.tableView.reloadData()
         self.tableView.scrollToRowAtIndexPath(realIndex, atScrollPosition: .Top, animated: false)
         
-//        UIView.transitionWithView(<#T##view: UIView##UIView#>, duration: <#T##NSTimeInterval#>, options: UIViewAnimationOptions.CurveEaseIn, animations: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+        //        UIView.transitionWithView(<#T##view: UIView##UIView#>, duration: <#T##NSTimeInterval#>, options: UIViewAnimationOptions.CurveEaseIn, animations: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
         UIView.animateWithDuration(0.3, animations: { () -> Void in
-   
+          
         })
         
         UIView.transitionWithView(self.tableView,
@@ -142,31 +146,31 @@ class TableViewController: UITableViewController {
           options:UIViewAnimationOptions.CurveEaseInOut,
           animations:
           { () -> Void in
-
+            
           },
           completion: nil);
-//        self.tableView.reloadData()
-      
+        //        self.tableView.reloadData()
         
-//        let row = fromIndex.row < toIndex.row ? toIndex.row: toIndex.row
-//        
-//        print(self.viewData)
-//        
-//        for i in 0..<self.viewData.count {
-//          
-//          self.tableViewRemoveRow(indexRow: 0)
-//          
-//        }
-//        
-//        print( self.viewData)
-//        for i in 0..<self.realData.count {
-//          self.tableViewInsertRow(item: self.realData[i], indexRow: i)
-//          if i > realIndex.row {
-//            self.tableView.scrollToRowAtIndexPath(realIndex, atScrollPosition: .Top, animated: false)
-//          }
-//          
-//        }
-//        
+        
+        //        let row = fromIndex.row < toIndex.row ? toIndex.row: toIndex.row
+        //
+        //        print(self.viewData)
+        //
+        //        for i in 0..<self.viewData.count {
+        //
+        //          self.tableViewRemoveRow(indexRow: 0)
+        //
+        //        }
+        //
+        //        print( self.viewData)
+        //        for i in 0..<self.realData.count {
+        //          self.tableViewInsertRow(item: self.realData[i], indexRow: i)
+        //          if i > realIndex.row {
+        //            self.tableView.scrollToRowAtIndexPath(realIndex, atScrollPosition: .Top, animated: false)
+        //          }
+        //
+        //        }
+        //
       }
     }
   }
