@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # iOS-Swift-Drag-And-Drop-TableView-Cell-1
 
 **purpose** better user experience for reordering a list.
@@ -10,3 +11,11 @@
 
 
 ![image](http://i.imgur.com/YH1AEdm.gif)
+=======
+# iOS-Swift-Animated-Reorder-And-Indent
+
+
+**status** work in progress
+
+![image](http://i.imgur.com/eEBnt14.gif)
+>>>>>>> 58a9fec13b2f38f76a3873add906a86f372b5269
