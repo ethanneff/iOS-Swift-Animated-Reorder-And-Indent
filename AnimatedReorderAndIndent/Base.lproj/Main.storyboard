@@ -8,7 +8,7 @@
         <!--Table View Controller-->
         <scene sceneID="gUK-Ua-8Yb">
             <objects>
-                <tableViewController id="prC-Oe-zDt" customClass="TableViewController" customModule="DragAndDropTableViewCell4" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="prC-Oe-zDt" customClass="TableViewController" customModule="AnimatedReorderAndIndent" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="vZl-mD-Mz8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

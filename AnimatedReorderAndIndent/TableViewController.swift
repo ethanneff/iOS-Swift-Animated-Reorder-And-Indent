@@ -17,14 +17,9 @@ class TableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // reorder
-    tableView = ReorderTableView(tableView: tableView)
-    if let tableView = tableView as? ReorderTableView {
-      tableView.reorderDelegate = self
-    }
-    
-    
-    
+    initReorderTableView()
+    initSwipeCell()
+
     // nav controller properties
     navigationController?.navigationBarHidden = true
     
@@ -50,6 +45,52 @@ class TableViewController: UITableViewController {
   }
   @IBAction func left(button: UIBarButtonItem) {
     print("left")
+  }
+  
+  
+  private func initReorderTableView() {
+    tableView = ReorderTableView(tableView: tableView)
+    if let tableView = tableView as? ReorderTableView {
+      tableView.reorderDelegate = self
+    }
+  }
+  
+  private func initSwipeCell() {
+    let nib = UINib(nibName: "SwipeCell", bundle: nil)
+    tableView.registerNib(nib, forCellReuseIdentifier: "cell")
+  }
+  
+  private func loadSwipeCell(indexPath indexPath: NSIndexPath) -> SwipeCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SwipeCell
+    cell.swipeDelegate = self
+
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right1, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "cross")), color: .blueColor()) { (cell) -> () in
+//      self.deleteCell(cell: cell)
+    }
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right2, swipeMode: SwipeCell.SwipeMode.Bounce, icon: UIImageView(image: UIImage(named: "list")), color: .redColor()) { (cell) -> () in
+//      self.deleteCell(cell: cell)
+    }
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right3, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "clock")), color: .orangeColor()) { (cell) -> () in
+//      self.deleteCell(cell: cell)
+    }
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right4, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "check")), color: .greenColor()) { (cell) -> () in
+//      self.deleteCell(cell: cell)
+    }
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Left1, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "check")), color: .purpleColor()) { (cell) -> () in
+//      self.deleteCell(cell: cell)
+    }
+    
+    return cell
+  }
+  
+  // MARK: - HELPER METHODS
+  func deleteCell(cell cell: UITableViewCell) {
+    tableView.beginUpdates()
+//    viewData.removeAtIndex(viewData.indexOf((cell.textLabel?.text)!)!)
+    tableView.indexPathForCell(cell)
+    tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForCell(cell)!], withRowAnimation: .Fade)
+    tableView.endUpdates()
+    print(viewData)
   }
   
   
@@ -310,7 +351,7 @@ class TableViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+    let cell = loadSwipeCell(indexPath: indexPath)
     
     // cell properties
     cell.separatorInset = UIEdgeInsetsZero

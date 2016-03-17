@@ -12,9 +12,11 @@
 		67D3E8131C6291250060F7E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67D3E8111C6291250060F7E2 /* Main.storyboard */; };
 		67D3E8151C6291250060F7E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67D3E8141C6291250060F7E2 /* Assets.xcassets */; };
 		67D3E8181C6291250060F7E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67D3E8161C6291250060F7E2 /* LaunchScreen.storyboard */; };
-		67D3E8231C6291250060F7E2 /* DragAndDropTableViewCell4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E8221C6291250060F7E2 /* DragAndDropTableViewCell4Tests.swift */; };
-		67D3E82E1C6291250060F7E2 /* DragAndDropTableViewCell4UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E82D1C6291250060F7E2 /* DragAndDropTableViewCell4UITests.swift */; };
+		67D3E8231C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E8221C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift */; };
+		67D3E82E1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E82D1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift */; };
 		67D3E83C1C6291590060F7E2 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E83B1C6291590060F7E2 /* TableViewController.swift */; };
+		67E4BFD51C9A4CCF00BE4B10 /* SwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */; };
+		67E4BFD61C9A4CCF00BE4B10 /* SwipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E4BFD41C9A4CCF00BE4B10 /* SwipeCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,32 +25,34 @@
 			containerPortal = 67D3E8021C6291250060F7E2 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 67D3E8091C6291250060F7E2;
-			remoteInfo = DragAndDropTableViewCell4;
+			remoteInfo = AnimatedReorderAndIndent;
 		};
 		67D3E82A1C6291250060F7E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67D3E8021C6291250060F7E2 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 67D3E8091C6291250060F7E2;
-			remoteInfo = DragAndDropTableViewCell4;
+			remoteInfo = AnimatedReorderAndIndent;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6769AB1D1C98A0DC00EB0E5F /* ReorderTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReorderTableView.swift; sourceTree = "<group>"; };
-		67D3E80A1C6291250060F7E2 /* DragAndDropTableViewCell4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragAndDropTableViewCell4.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D3E80A1C6291250060F7E2 /* AnimatedReorderAndIndent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatedReorderAndIndent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D3E80D1C6291250060F7E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67D3E8121C6291250060F7E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		67D3E8141C6291250060F7E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67D3E8171C6291250060F7E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		67D3E8191C6291250060F7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		67D3E81E1C6291250060F7E2 /* DragAndDropTableViewCell4.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DragAndDropTableViewCell4.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		67D3E8221C6291250060F7E2 /* DragAndDropTableViewCell4Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropTableViewCell4Tests.swift; sourceTree = "<group>"; };
+		67D3E81E1C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimatedReorderAndIndent.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D3E8221C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedReorderAndIndentTests.swift; sourceTree = "<group>"; };
 		67D3E8241C6291250060F7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		67D3E8291C6291250060F7E2 /* DragAndDropTableViewCell4.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DragAndDropTableViewCell4.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		67D3E82D1C6291250060F7E2 /* DragAndDropTableViewCell4UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropTableViewCell4UITests.swift; sourceTree = "<group>"; };
+		67D3E8291C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimatedReorderAndIndent.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D3E82D1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedReorderAndIndentUITests.swift; sourceTree = "<group>"; };
 		67D3E82F1C6291250060F7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67D3E83B1C6291590060F7E2 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCell.swift; sourceTree = "<group>"; };
+		67E4BFD41C9A4CCF00BE4B10 /* SwipeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwipeCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +83,9 @@
 		67D3E8011C6291250060F7E2 = {
 			isa = PBXGroup;
 			children = (
-				67D3E80C1C6291250060F7E2 /* DragAndDropTableViewCell4 */,
-				67D3E8211C6291250060F7E2 /* DragAndDropTableViewCell4Tests */,
-				67D3E82C1C6291250060F7E2 /* DragAndDropTableViewCell4UITests */,
+				67D3E80C1C6291250060F7E2 /* AnimatedReorderAndIndent */,
+				67D3E8211C6291250060F7E2 /* AnimatedReorderAndIndentTests */,
+				67D3E82C1C6291250060F7E2 /* AnimatedReorderAndIndentUITests */,
 				67D3E80B1C6291250060F7E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,51 +93,61 @@
 		67D3E80B1C6291250060F7E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				67D3E80A1C6291250060F7E2 /* DragAndDropTableViewCell4.app */,
-				67D3E81E1C6291250060F7E2 /* DragAndDropTableViewCell4.xctest */,
-				67D3E8291C6291250060F7E2 /* DragAndDropTableViewCell4.xctest */,
+				67D3E80A1C6291250060F7E2 /* AnimatedReorderAndIndent.app */,
+				67D3E81E1C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */,
+				67D3E8291C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		67D3E80C1C6291250060F7E2 /* DragAndDropTableViewCell4 */ = {
+		67D3E80C1C6291250060F7E2 /* AnimatedReorderAndIndent */ = {
 			isa = PBXGroup;
 			children = (
+				67E4BFD21C9A4CA000BE4B10 /* other */,
 				67D3E83B1C6291590060F7E2 /* TableViewController.swift */,
-				67D3E80D1C6291250060F7E2 /* AppDelegate.swift */,
 				67D3E8111C6291250060F7E2 /* Main.storyboard */,
+				6769AB1D1C98A0DC00EB0E5F /* ReorderTableView.swift */,
+				67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */,
+				67E4BFD41C9A4CCF00BE4B10 /* SwipeCell.xib */,
+			);
+			path = AnimatedReorderAndIndent;
+			sourceTree = "<group>";
+		};
+		67D3E8211C6291250060F7E2 /* AnimatedReorderAndIndentTests */ = {
+			isa = PBXGroup;
+			children = (
+				67D3E8221C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift */,
+				67D3E8241C6291250060F7E2 /* Info.plist */,
+			);
+			path = AnimatedReorderAndIndentTests;
+			sourceTree = "<group>";
+		};
+		67D3E82C1C6291250060F7E2 /* AnimatedReorderAndIndentUITests */ = {
+			isa = PBXGroup;
+			children = (
+				67D3E82D1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift */,
+				67D3E82F1C6291250060F7E2 /* Info.plist */,
+			);
+			path = AnimatedReorderAndIndentUITests;
+			sourceTree = "<group>";
+		};
+		67E4BFD21C9A4CA000BE4B10 /* other */ = {
+			isa = PBXGroup;
+			children = (
+				67D3E80D1C6291250060F7E2 /* AppDelegate.swift */,
 				67D3E8141C6291250060F7E2 /* Assets.xcassets */,
 				67D3E8161C6291250060F7E2 /* LaunchScreen.storyboard */,
 				67D3E8191C6291250060F7E2 /* Info.plist */,
-				6769AB1D1C98A0DC00EB0E5F /* ReorderTableView.swift */,
 			);
-			path = DragAndDropTableViewCell4;
-			sourceTree = "<group>";
-		};
-		67D3E8211C6291250060F7E2 /* DragAndDropTableViewCell4Tests */ = {
-			isa = PBXGroup;
-			children = (
-				67D3E8221C6291250060F7E2 /* DragAndDropTableViewCell4Tests.swift */,
-				67D3E8241C6291250060F7E2 /* Info.plist */,
-			);
-			path = DragAndDropTableViewCell4Tests;
-			sourceTree = "<group>";
-		};
-		67D3E82C1C6291250060F7E2 /* DragAndDropTableViewCell4UITests */ = {
-			isa = PBXGroup;
-			children = (
-				67D3E82D1C6291250060F7E2 /* DragAndDropTableViewCell4UITests.swift */,
-				67D3E82F1C6291250060F7E2 /* Info.plist */,
-			);
-			path = DragAndDropTableViewCell4UITests;
+			name = other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		67D3E8091C6291250060F7E2 /* DragAndDropTableViewCell4 */ = {
+		67D3E8091C6291250060F7E2 /* AnimatedReorderAndIndent */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 67D3E8321C6291250060F7E2 /* Build configuration list for PBXNativeTarget "DragAndDropTableViewCell4" */;
+			buildConfigurationList = 67D3E8321C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndent" */;
 			buildPhases = (
 				67D3E8061C6291250060F7E2 /* Sources */,
 				67D3E8071C6291250060F7E2 /* Frameworks */,
@@ -143,14 +157,14 @@
 			);
 			dependencies = (
 			);
-			name = DragAndDropTableViewCell4;
-			productName = DragAndDropTableViewCell4;
-			productReference = 67D3E80A1C6291250060F7E2 /* DragAndDropTableViewCell4.app */;
+			name = AnimatedReorderAndIndent;
+			productName = AnimatedReorderAndIndent;
+			productReference = 67D3E80A1C6291250060F7E2 /* AnimatedReorderAndIndent.app */;
 			productType = "com.apple.product-type.application";
 		};
-		67D3E81D1C6291250060F7E2 /* DragAndDropTableViewCell4Tests */ = {
+		67D3E81D1C6291250060F7E2 /* AnimatedReorderAndIndentTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 67D3E8351C6291250060F7E2 /* Build configuration list for PBXNativeTarget "DragAndDropTableViewCell4Tests" */;
+			buildConfigurationList = 67D3E8351C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndentTests" */;
 			buildPhases = (
 				67D3E81A1C6291250060F7E2 /* Sources */,
 				67D3E81B1C6291250060F7E2 /* Frameworks */,
@@ -161,14 +175,14 @@
 			dependencies = (
 				67D3E8201C6291250060F7E2 /* PBXTargetDependency */,
 			);
-			name = DragAndDropTableViewCell4Tests;
-			productName = DragAndDropTableViewCell4Tests;
-			productReference = 67D3E81E1C6291250060F7E2 /* DragAndDropTableViewCell4.xctest */;
+			name = AnimatedReorderAndIndentTests;
+			productName = AnimatedReorderAndIndentTests;
+			productReference = 67D3E81E1C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		67D3E8281C6291250060F7E2 /* DragAndDropTableViewCell4UITests */ = {
+		67D3E8281C6291250060F7E2 /* AnimatedReorderAndIndentUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 67D3E8381C6291250060F7E2 /* Build configuration list for PBXNativeTarget "DragAndDropTableViewCell4UITests" */;
+			buildConfigurationList = 67D3E8381C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndentUITests" */;
 			buildPhases = (
 				67D3E8251C6291250060F7E2 /* Sources */,
 				67D3E8261C6291250060F7E2 /* Frameworks */,
@@ -179,9 +193,9 @@
 			dependencies = (
 				67D3E82B1C6291250060F7E2 /* PBXTargetDependency */,
 			);
-			name = DragAndDropTableViewCell4UITests;
-			productName = DragAndDropTableViewCell4UITests;
-			productReference = 67D3E8291C6291250060F7E2 /* DragAndDropTableViewCell4.xctest */;
+			name = AnimatedReorderAndIndentUITests;
+			productName = AnimatedReorderAndIndentUITests;
+			productReference = 67D3E8291C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -207,7 +221,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 67D3E8051C6291250060F7E2 /* Build configuration list for PBXProject "DragAndDropTableViewCell4" */;
+			buildConfigurationList = 67D3E8051C6291250060F7E2 /* Build configuration list for PBXProject "AnimatedReorderAndIndent" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -220,9 +234,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				67D3E8091C6291250060F7E2 /* DragAndDropTableViewCell4 */,
-				67D3E81D1C6291250060F7E2 /* DragAndDropTableViewCell4Tests */,
-				67D3E8281C6291250060F7E2 /* DragAndDropTableViewCell4UITests */,
+				67D3E8091C6291250060F7E2 /* AnimatedReorderAndIndent */,
+				67D3E81D1C6291250060F7E2 /* AnimatedReorderAndIndentTests */,
+				67D3E8281C6291250060F7E2 /* AnimatedReorderAndIndentUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -234,6 +248,7 @@
 			files = (
 				67D3E8181C6291250060F7E2 /* LaunchScreen.storyboard in Resources */,
 				67D3E8151C6291250060F7E2 /* Assets.xcassets in Resources */,
+				67E4BFD61C9A4CCF00BE4B10 /* SwipeCell.xib in Resources */,
 				67D3E8131C6291250060F7E2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +276,7 @@
 			files = (
 				6769AB1E1C98A0DC00EB0E5F /* ReorderTableView.swift in Sources */,
 				67D3E80E1C6291250060F7E2 /* AppDelegate.swift in Sources */,
+				67E4BFD51C9A4CCF00BE4B10 /* SwipeCell.swift in Sources */,
 				67D3E83C1C6291590060F7E2 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,7 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67D3E8231C6291250060F7E2 /* DragAndDropTableViewCell4Tests.swift in Sources */,
+				67D3E8231C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67D3E82E1C6291250060F7E2 /* DragAndDropTableViewCell4UITests.swift in Sources */,
+				67D3E82E1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,12 +302,12 @@
 /* Begin PBXTargetDependency section */
 		67D3E8201C6291250060F7E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 67D3E8091C6291250060F7E2 /* DragAndDropTableViewCell4 */;
+			target = 67D3E8091C6291250060F7E2 /* AnimatedReorderAndIndent */;
 			targetProxy = 67D3E81F1C6291250060F7E2 /* PBXContainerItemProxy */;
 		};
 		67D3E82B1C6291250060F7E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 67D3E8091C6291250060F7E2 /* DragAndDropTableViewCell4 */;
+			target = 67D3E8091C6291250060F7E2 /* AnimatedReorderAndIndent */;
 			targetProxy = 67D3E82A1C6291250060F7E2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -403,10 +419,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = DragAndDropTableViewCell4/Info.plist;
+				INFOPLIST_FILE = AnimatedReorderAndIndent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.DragAndDropTableViewCell4;
-				PRODUCT_NAME = DragAndDropTableViewCell4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndent;
+				PRODUCT_NAME = AnimatedReorderAndIndent;
 			};
 			name = Debug;
 		};
@@ -414,10 +431,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = DragAndDropTableViewCell4/Info.plist;
+				INFOPLIST_FILE = AnimatedReorderAndIndent/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.DragAndDropTableViewCell4;
-				PRODUCT_NAME = DragAndDropTableViewCell4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndent;
+				PRODUCT_NAME = AnimatedReorderAndIndent;
 			};
 			name = Release;
 		};
@@ -425,11 +443,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = DragAndDropTableViewCell4Tests/Info.plist;
+				INFOPLIST_FILE = AnimatedReorderAndIndentTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.DragAndDropTableViewCell4Tests;
-				PRODUCT_NAME = DragAndDropTableViewCell4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DragAndDropTableViewCell4.app/DragAndDropTableViewCell4";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndentTests;
+				PRODUCT_NAME = AnimatedReorderAndIndent;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AnimatedReorderAndIndent.app/AnimatedReorderAndIndent";
 			};
 			name = Debug;
 		};
@@ -437,22 +455,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = DragAndDropTableViewCell4Tests/Info.plist;
+				INFOPLIST_FILE = AnimatedReorderAndIndentTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.DragAndDropTableViewCell4Tests;
-				PRODUCT_NAME = DragAndDropTableViewCell4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DragAndDropTableViewCell4.app/DragAndDropTableViewCell4";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndentTests;
+				PRODUCT_NAME = AnimatedReorderAndIndent;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AnimatedReorderAndIndent.app/AnimatedReorderAndIndent";
 			};
 			name = Release;
 		};
 		67D3E8391C6291250060F7E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = DragAndDropTableViewCell4UITests/Info.plist;
+				INFOPLIST_FILE = AnimatedReorderAndIndentUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.DragAndDropTableViewCell4UITests;
-				PRODUCT_NAME = DragAndDropTableViewCell4;
-				TEST_TARGET_NAME = DragAndDropTableViewCell4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndentUITests;
+				PRODUCT_NAME = AnimatedReorderAndIndent;
+				TEST_TARGET_NAME = AnimatedReorderAndIndent;
 				USES_XCTRUNNER = YES;
 			};
 			name = Debug;
@@ -460,11 +478,11 @@
 		67D3E83A1C6291250060F7E2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = DragAndDropTableViewCell4UITests/Info.plist;
+				INFOPLIST_FILE = AnimatedReorderAndIndentUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.DragAndDropTableViewCell4UITests;
-				PRODUCT_NAME = DragAndDropTableViewCell4;
-				TEST_TARGET_NAME = DragAndDropTableViewCell4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndentUITests;
+				PRODUCT_NAME = AnimatedReorderAndIndent;
+				TEST_TARGET_NAME = AnimatedReorderAndIndent;
 				USES_XCTRUNNER = YES;
 			};
 			name = Release;
@@ -472,7 +490,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		67D3E8051C6291250060F7E2 /* Build configuration list for PBXProject "DragAndDropTableViewCell4" */ = {
+		67D3E8051C6291250060F7E2 /* Build configuration list for PBXProject "AnimatedReorderAndIndent" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D3E8301C6291250060F7E2 /* Debug */,
@@ -481,7 +499,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		67D3E8321C6291250060F7E2 /* Build configuration list for PBXNativeTarget "DragAndDropTableViewCell4" */ = {
+		67D3E8321C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndent" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D3E8331C6291250060F7E2 /* Debug */,
@@ -490,7 +508,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		67D3E8351C6291250060F7E2 /* Build configuration list for PBXNativeTarget "DragAndDropTableViewCell4Tests" */ = {
+		67D3E8351C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndentTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D3E8361C6291250060F7E2 /* Debug */,
@@ -499,7 +517,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		67D3E8381C6291250060F7E2 /* Build configuration list for PBXNativeTarget "DragAndDropTableViewCell4UITests" */ = {
+		67D3E8381C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndentUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D3E8391C6291250060F7E2 /* Debug */,
