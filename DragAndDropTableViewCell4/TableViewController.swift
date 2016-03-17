@@ -134,7 +134,7 @@ class TableViewController: UITableViewController {
         print(self.viewData[toIndexPath.row])
         self.viewData = self.realData
         self.tableView.reloadData()
-        self.tableView.scrollToRowAtIndexPath(realIndex, atScrollPosition: .Top, animated: false)
+//        self.tableView.scrollToRowAtIndexPath(realIndex, atScrollPosition: .Top, animated: false)
         
         //        UIView.transitionWithView(<#T##view: UIView##UIView#>, duration: <#T##NSTimeInterval#>, options: UIViewAnimationOptions.CurveEaseIn, animations: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
         UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -430,6 +430,38 @@ class TableViewController: UITableViewController {
     e = Data(name: "7.1.3", parent: c, indent: 2)
     f = Data(name: "7.2.0", parent: a, indent: 1)
     g = Data(name: "8.0.0", parent: nil, indent: 0)
+    
+    viewData.append(a)
+    viewData.append(b)
+    viewData.append(c)
+    viewData.append(d)
+    viewData.append(e)
+    viewData.append(f)
+    viewData.append(g)
+    
+    a = Data(name: "9.0.0", parent: nil, indent: 0)
+    b = Data(name: "9.1.0", parent: nil, indent: 0)
+    c = Data(name: "9.1.1", parent: nil, indent: 0)
+    d = Data(name: "9.1.2", parent: nil, indent: 0)
+    e = Data(name: "9.1.3", parent: nil, indent: 0)
+    f = Data(name: "9.2.0", parent: nil, indent: 0)
+    g = Data(name: "9.0.0", parent: nil, indent: 0)
+    
+    viewData.append(a)
+    viewData.append(b)
+    viewData.append(c)
+    viewData.append(d)
+    viewData.append(e)
+    viewData.append(f)
+    viewData.append(g)
+    
+    a = Data(name: "9.0.0", parent: nil, indent: 0)
+    b = Data(name: "9.1.0", parent: nil, indent: 0)
+    c = Data(name: "9.1.1", parent: nil, indent: 0)
+    d = Data(name: "9.1.2", parent: nil, indent: 0)
+    e = Data(name: "9.1.3", parent: nil, indent: 0)
+    f = Data(name: "9.2.0", parent: nil, indent: 0)
+    g = Data(name: "9.0.0", parent: nil, indent: 0)
     
     viewData.append(a)
     viewData.append(b)
