@@ -19,9 +19,9 @@ class TableViewController: UITableViewController {
     
     initReorderTableView()
     initSwipeCell()
-
+    
     // nav controller properties
-    navigationController?.navigationBarHidden = true
+//    navigationController?.navigationBarHidden = true
     
     // table properties
     tableView.contentInset = UIEdgeInsetsZero
@@ -31,7 +31,7 @@ class TableViewController: UITableViewController {
     tableView.tableFooterView = UIView(frame: CGRectZero)
     
     // collpase
-    let collpase = UITapGestureRecognizer(target: self, action: "doubleTapGesture:")
+    let collpase = UITapGestureRecognizer(target: self, action: #selector(TableViewController.doubleTapGesture(_:)))
     collpase.numberOfTapsRequired = 2
     tableView.addGestureRecognizer(collpase)
     
@@ -63,21 +63,21 @@ class TableViewController: UITableViewController {
   private func loadSwipeCell(indexPath indexPath: NSIndexPath) -> SwipeCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SwipeCell
     cell.swipeDelegate = self
-
+    
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right1, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "cross")), color: .blueColor()) { (cell) -> () in
-//      self.deleteCell(cell: cell)
+      //      self.deleteCell(cell: cell)
     }
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right2, swipeMode: SwipeCell.SwipeMode.Bounce, icon: UIImageView(image: UIImage(named: "list")), color: .redColor()) { (cell) -> () in
-//      self.deleteCell(cell: cell)
+      //      self.deleteCell(cell: cell)
     }
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right3, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "clock")), color: .orangeColor()) { (cell) -> () in
-//      self.deleteCell(cell: cell)
+      //      self.deleteCell(cell: cell)
     }
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right4, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "check")), color: .greenColor()) { (cell) -> () in
-//      self.deleteCell(cell: cell)
+      //      self.deleteCell(cell: cell)
     }
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Left1, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "check")), color: .purpleColor()) { (cell) -> () in
-//      self.deleteCell(cell: cell)
+      //      self.deleteCell(cell: cell)
     }
     
     return cell
@@ -86,7 +86,7 @@ class TableViewController: UITableViewController {
   // MARK: - HELPER METHODS
   func deleteCell(cell cell: UITableViewCell) {
     tableView.beginUpdates()
-//    viewData.removeAtIndex(viewData.indexOf((cell.textLabel?.text)!)!)
+    //    viewData.removeAtIndex(viewData.indexOf((cell.textLabel?.text)!)!)
     tableView.indexPathForCell(cell)
     tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForCell(cell)!], withRowAnimation: .Fade)
     tableView.endUpdates()
@@ -96,18 +96,26 @@ class TableViewController: UITableViewController {
   
   // MARK: - DOUBLE TAP
   func doubleTapGesture(touch: UITapGestureRecognizer) {
+    toggleCollapseSection()
+    
+    
     // toggle collapse/expand section
     let location = touch.locationInView(tableView)
     if let index = tableView.indexPathForRowAtPoint(location),
       let cell = tableView.cellForRowAtIndexPath(index) {
-        let viewCellData = viewData[index.row]
-        viewCellData.collapsed = !viewCellData.collapsed
-        if viewCellData.collapsed {
-          collapseSection(index: index, cell: cell)
-        } else {
-          expandSection(index: index, cell: cell)
-        }
+      let viewCellData = viewData[index.row]
+      viewCellData.collapsed = !viewCellData.collapsed
+      if viewCellData.collapsed {
+        collapseSection(index: index, cell: cell)
+      } else {
+        expandSection(index: index, cell: cell)
+      }
     }
+  }
+  
+  
+  func toggleCollapseSection() {
+    
   }
   
   func collapseSection(index index: NSIndexPath, cell: UITableViewCell) {
@@ -152,7 +160,7 @@ class TableViewController: UITableViewController {
     }
   }
   
-    // MARK: - REORDER
+  // MARK: - REORDER
   override func reorderBefore(fromIndexPath: NSIndexPath) {
     // collapse all rows that are not the correct indent level
     collapseCellsBelow(indexRow: fromIndexPath.row)
@@ -163,19 +171,19 @@ class TableViewController: UITableViewController {
       tableView.reorderInitalIndexPath = newIndex
     }
   }
-
-
+  
+  
   override func reorderAfter(fromIndexPath: NSIndexPath, toIndexPath:NSIndexPath) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-      var realIndex = toIndexPath
-      if fromIndexPath.row != toIndexPath.row {
-        realIndex = self.reorderUpdateRealData(fromIndex: fromIndexPath, toIndex: toIndexPath)
-      }
+      //      var realIndex = toIndexPath
+      //      if fromIndexPath.row != toIndexPath.row {
+      //        realIndex = self.reorderUpdateRealData(fromIndex: fromIndexPath, toIndex: toIndexPath)
+      //      }
       dispatch_async(dispatch_get_main_queue()) {
         print(self.viewData[toIndexPath.row])
         self.viewData = self.realData
         self.tableView.reloadData()
-//        self.tableView.scrollToRowAtIndexPath(realIndex, atScrollPosition: .Top, animated: false)
+        //        self.tableView.scrollToRowAtIndexPath(realIndex, atScrollPosition: .Top, animated: false)
         
         //        UIView.transitionWithView(<#T##view: UIView##UIView#>, duration: <#T##NSTimeInterval#>, options: UIViewAnimationOptions.CurveEaseIn, animations: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
         UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -183,13 +191,13 @@ class TableViewController: UITableViewController {
         })
         
         UIView.transitionWithView(self.tableView,
-          duration:0.35,
-          options:UIViewAnimationOptions.CurveEaseInOut,
-          animations:
+                                  duration:0.35,
+                                  options:UIViewAnimationOptions.CurveEaseInOut,
+                                  animations:
           { () -> Void in
             
           },
-          completion: nil);
+                                  completion: nil);
         //        self.tableView.reloadData()
         
         
@@ -304,7 +312,7 @@ class TableViewController: UITableViewController {
       if viewData[indexDown].indent != indent {
         tableViewRemoveRow(indexRow: indexDown)
       } else {
-        indexDown++
+        indexDown += 1
       }
     }
   }
@@ -319,9 +327,9 @@ class TableViewController: UITableViewController {
       }
       if viewData[indexUp].indent != indent {
         tableViewRemoveRow(indexRow: indexUp)
-        indexChange++
+        indexChange += 1
       }
-      indexUp--
+      indexUp -= 1
     }
     
     return NSIndexPath(forItem: indexRow-indexChange, inSection: 0)
@@ -521,7 +529,6 @@ class Data: CustomStringConvertible {
   var parent: Data?
   var indent: Int = 0
   var collapsed: Bool = false
-  
   
   var description: String {
     return "\(name)"

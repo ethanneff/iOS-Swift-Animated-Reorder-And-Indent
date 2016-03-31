@@ -292,7 +292,7 @@ class SwipeCell: UITableViewCell {
   
   // MARK: - END
   private func swipeCompleteCell(percentage percentage: CGFloat, duration: Double, direction: SwipeDirection) {
-    // determine which completion animation
+    print(duration)
     if let object = swipeGetSwipeObject(percentage: percentage) {
       let icon = object.icon
       let completion = object.completion
@@ -332,7 +332,7 @@ class SwipeCell: UITableViewCell {
     }
   }
   
-  private func swipeDirectionSlide(duration duration: NSTimeInterval, direction: SwipeDirection, icon: UIView, completion: SwipeCompletion) {
+  private func swipeDirectionSlide(duration duration: NSTimeInterval, direction: SwipeDirection, icon: UIView,completion: SwipeCompletion) {
     // determine ending percentage
     var origin: CGFloat
     if direction == .Left {

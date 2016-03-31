@@ -1,11 +1,3 @@
-//
-//  ReorderTableView.swift
-//  DragAndDropTableViewCell1
-//
-//  Created by Ethan Neff on 2/25/16.
-//  Copyright © 2016 Ethan Neff. All rights reserved.
-//
-
 // TODO: fix minor memory leak
 
 import UIKit
@@ -22,10 +14,11 @@ extension UITableViewController: ReorderTableViewDelegate {
 
 class ReorderTableView: UITableView {
   // MARK: - PROPERTIES
+  
   // constants
-  let kReorderLiftAnimation: Double = 0.35
-  let kReorderScrollMultiplier: CGFloat = 10.0
-  let kReorderScrollTableViewPadding: CGFloat = 50.0
+  private let kReorderLiftAnimation: Double = 0.35
+  private let kReorderScrollMultiplier: CGFloat = 10.0
+  private let kReorderScrollTableViewPadding: CGFloat = 50.0
   
   // public
   var reorderInitalIndexPath: NSIndexPath?
@@ -34,6 +27,7 @@ class ReorderTableView: UITableView {
   // private
   private var reorderGesture: UILongPressGestureRecognizer?
   private var reorderPreviousIndexPath: NSIndexPath?
+  private var reorderInitialCellCenter: CGPoint?
   private var reorderSnapshot: UIView?
   private var reorderScrollRate: CGFloat = 0
   private var reorderGesturePressed: Bool = false
@@ -42,7 +36,7 @@ class ReorderTableView: UITableView {
   
   
   // MARK: - DELEGATION
-  internal enum ReorderDelegateNotifications {
+  private enum ReorderDelegateNotifications {
     case Before
     case After
   }
@@ -72,8 +66,8 @@ class ReorderTableView: UITableView {
     self.init(frame: CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.frame.size.height), style: .Plain)
   }
   
-  func initalizer() {
-    reorderGesture = UILongPressGestureRecognizer(target: self, action: "reorderGestureRecognized:")
+  private func initalizer() {
+    reorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(reorderGestureRecognized(_:)))
     if let reorderGesture = reorderGesture {
       reorderGesture.minimumPressDuration = 0.3
       addGestureRecognizer(reorderGesture)
@@ -93,17 +87,17 @@ class ReorderTableView: UITableView {
     if let reorderSnapshot = reorderSnapshot {
       reorderSnapshot.removeFromSuperview()
     }
-    print(reorderSnapshot)
-
+    
     reorderInitalIndexPath = nil
     reorderPreviousIndexPath = nil
     reorderSnapshot = nil
+    reorderInitialCellCenter = nil
   }
   
   
   
   // MARK: - GESTURE
-  func reorderGestureRecognized(gesture: UILongPressGestureRecognizer) {
+  internal func reorderGestureRecognized(gesture: UILongPressGestureRecognizer) {
     // long press on cell
     let location = gesture.locationInView(self)
     
@@ -116,6 +110,7 @@ class ReorderTableView: UITableView {
         reorderNotifyDelegate(notification: .Before, fromIndexPath: indexPath, toIndexPath: nil)
         reorderHandleDelegateIndexChange(location: location)
         if let previousIndexPath = reorderPreviousIndexPath, let cell = cellForRowAtIndexPath(previousIndexPath) {
+          reorderInitialCellCenter = cell.center
           reorderCreateSnapshotCell(cell: cell)
           reorderLiftSnapshotCell(location: location, cell: cell)
         }
@@ -125,7 +120,10 @@ class ReorderTableView: UITableView {
       reorderUpdateScrollRateForTableViewScrolling(location: location)
     default:
       // ended
-      if let initialIndexPath = reorderInitalIndexPath, let previousIndexPath = reorderPreviousIndexPath, let cell = cellForRowAtIndexPath(previousIndexPath) {
+      if let initialIndexPath = reorderInitalIndexPath,
+        let previousIndexPath = reorderPreviousIndexPath,
+        let previousCell = cellForRowAtIndexPath(previousIndexPath) {
+        let cell = reorderPreventReorderOnSameCellCenterOffset(initialIndexPath: initialIndexPath, previousIndexPath: previousIndexPath, previousCell: previousCell)
         reorderGesturePressed = false
         reorderDropSnapshotCell(cell: cell) { finished in
           self.reorderNotifyDelegate(notification: .After, fromIndexPath: initialIndexPath, toIndexPath: previousIndexPath)
@@ -134,13 +132,12 @@ class ReorderTableView: UITableView {
       }
     }
   }
-  
+
   
   // MARK: - BEGIN
   private func reorderLoopToDetectScrolling() {
     // start looping for scrolling (because want to scroll when non-moving near edges [UIGestureRecognizerState.Change won't be called])
-    
-    reorderScrollLink = CADisplayLink(target: self, selector: "reorderScrollTableWithCell")
+    reorderScrollLink = CADisplayLink(target: self, selector: #selector(reorderScrollTableWithCell))
     reorderScrollLink!.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
   }
   
@@ -151,7 +148,6 @@ class ReorderTableView: UITableView {
     // save initial and previous indexes (used the passed index [reorderInitalIndexPath] if available)
     reorderInitalIndexPath = reorderInitalIndexPath ?? delegateTouchIndexPath
     reorderPreviousIndexPath = delegateTouchIndexPath
-    print(reorderInitalIndexPath,reorderPreviousIndexPath)
     
     if let initalIndexPath = reorderInitalIndexPath, let previousIndexPath = reorderPreviousIndexPath {
       // reorder any changes from the delegate
@@ -228,7 +224,7 @@ class ReorderTableView: UITableView {
     }
   }
   
-  func reorderScrollTableWithCell() {
+  internal func reorderScrollTableWithCell() {
     // looping via the CADisplayLink of reorderScrollLink to detect whether to move the tableview or not
     if let gesture: UILongPressGestureRecognizer = reorderGesture where reorderGesturePressed {
       let location: CGPoint = gesture.locationInView(self)
@@ -241,20 +237,22 @@ class ReorderTableView: UITableView {
     }
   }
   
-  private func reorderScrollWithTableView(prevOffset prevOffset: CGPoint, var nextOffset: CGPoint ) {
+  private func reorderScrollWithTableView(prevOffset prevOffset: CGPoint, nextOffset: CGPoint ) {
+    var newOffset = nextOffset
+    
     // scroll the tableview on drag
     if nextOffset.y < -contentInset.top {
-      nextOffset.y = -contentInset.top
+      newOffset.y = -contentInset.top
     }
     else if contentSize.height + contentInset.bottom < frame.size.height {
-      nextOffset = prevOffset
+      newOffset = prevOffset
     }
     else if nextOffset.y > (contentSize.height + contentInset.bottom) - frame.size.height {
-      nextOffset.y = (contentSize.height + contentInset.bottom) - frame.size.height
+      newOffset.y = (contentSize.height + contentInset.bottom) - frame.size.height
     }
-    contentOffset = nextOffset
+    contentOffset = newOffset
   }
-
+  
   private func reorderUpdateCurrentLocation(gesture gesture: UILongPressGestureRecognizer, location: CGPoint ) {
     // reorder the tableview cells on drag
     if let nextIndexPath = indexPathForRowAtPoint(location), let prevIndexPath = reorderPreviousIndexPath {
@@ -268,6 +266,13 @@ class ReorderTableView: UITableView {
   
   
   // MARK: - ENDED
+  private func reorderPreventReorderOnSameCellCenterOffset(initialIndexPath initialIndexPath: NSIndexPath, previousIndexPath: NSIndexPath, previousCell: UITableViewCell) -> UITableViewCell {
+    if let initialCenter = reorderInitialCellCenter where initialIndexPath == previousIndexPath {
+      previousCell.center = initialCenter
+    }
+    return previousCell
+  }
+  
   private func reorderDropSnapshotCell(cell cell: UITableViewCell, completion: (finished: Bool) -> ()) {
     cell.hidden = false
     cell.alpha = 0.0
