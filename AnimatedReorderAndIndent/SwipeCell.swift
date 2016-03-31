@@ -42,7 +42,7 @@ class SwipeCell: UITableViewCell {
   private var colorIndicatorView = UIView()
   private var iconView = UIView()
   private var direction: SwipeDirection = .Center
-  private var swipe: UIPanGestureRecognizer?
+  private var swipeGesture: UIPanGestureRecognizer?
   
   private var Left1: SwipeObject?
   private var Left2: SwipeObject?
@@ -122,8 +122,8 @@ class SwipeCell: UITableViewCell {
     layoutMargins = UIEdgeInsetsZero
     
     // swipe gesture
-    swipe = UIPanGestureRecognizer(target: self, action:#selector(SwipeCell.handleSwipeGesture(_:)))
-    if let swipe = swipe {
+    swipeGesture = UIPanGestureRecognizer(target: self, action:#selector(SwipeCell.handleSwipeGesture(_:)))
+    if let swipe = swipeGesture {
       swipe.delegate = self
       addGestureRecognizer(swipe)
     }
@@ -226,6 +226,7 @@ class SwipeCell: UITableViewCell {
     iconView.contentMode = .Center
     colorIndicatorView.addSubview(iconView)
     
+    // cell snapshot
     contentScreenshotView = UIImageView(image: snapshot)
     addSubview(contentScreenshotView)
   }
@@ -322,13 +323,11 @@ class SwipeCell: UITableViewCell {
       self.colorIndicatorView.backgroundColor = self.defaultColor
       self.iconView.alpha = 0
       self.swipeUpdateIcon(percentage: 0, direction: direction, icon: icon, isDragging: self.shouldAnimateIcons)
-      }) { (finished) -> Void in
-        if let completion = completion where !self.swipeGetBeforeTrigger(percentage: percentage, direction: direction) {
-          completion(cell: self)
-          self.swipeDealloc()
-        } else {
-          self.isExiting = false
-        }
+    }) { (finished) -> Void in
+      if let completion = completion where !self.swipeGetBeforeTrigger(percentage: percentage, direction: direction) {
+        completion(cell: self)
+      }
+      self.swipeDealloc()
     }
   }
   
@@ -352,20 +351,20 @@ class SwipeCell: UITableViewCell {
       self.swipeUpdateIcon(percentage: percentage, direction: direction, icon: icon, isDragging: self.shouldAnimateIcons)
       }, completion: {(finished: Bool) -> Void in
         completion(cell: self)
-        self.swipeDealloc()
+        // delay for animated swipe of cell
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+          self.swipeDealloc()
+        }
     })
   }
   
   private func swipeDealloc() {
-    // delay for animated delete of cell
-    self.swipeDelegate = nil
-    self.swipe = nil
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-      self.isExiting = false
-      self.iconView.removeFromSuperview()
-      self.colorIndicatorView.removeFromSuperview()
-      self.contentScreenshotView.removeFromSuperview()
-    }
+    swipeDelegate = nil
+    swipeGesture = nil
+    isExiting = false
+    iconView.removeFromSuperview()
+    colorIndicatorView.removeFromSuperview()
+    contentScreenshotView.removeFromSuperview()
   }
   
   
