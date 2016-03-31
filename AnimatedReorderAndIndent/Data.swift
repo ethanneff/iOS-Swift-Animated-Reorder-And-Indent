@@ -60,7 +60,7 @@ class ViewData: Indentable, Collapsable, CustomStringConvertible {
   var collapsed: Bool
   var indent: Int
   var description: String {
-    return "[indent: \(indent), collapsed: \(collapsed), name: \(name)]"
+    return "\n[indent: \(indent), collapsed: \(collapsed), name: \(name)]"
   }
   
   init(name: String, indent: Int, collapsed: Bool) {

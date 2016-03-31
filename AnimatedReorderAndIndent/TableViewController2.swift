@@ -23,8 +23,6 @@ class TableViewController2: UITableViewController {
     initDefaultTableViewLayout()
     initGestureDoubleTapToCollapse()
     loadTestData()
-    
-    //    realData = loadTestData(realData)
   }
   
   // MARK: - UNLOAD
@@ -35,17 +33,18 @@ class TableViewController2: UITableViewController {
   }
   
   @IBAction func left(sender: AnyObject) {
-    tableViewReloadData()
+    //    tableViewReloadData()
+    tableView.reloadData()
   }
   
   @IBAction func right(sender: AnyObject) {
-    
   }
   
   
   // MARK: - TABLEVIEW
   private func initReorderTableView() {
     tableView = ReorderTableView(tableView: tableView)
+    tableView.delegate = self
     if let tableView = tableView as? ReorderTableView {
       tableView.reorderDelegate = self
     }
@@ -54,6 +53,7 @@ class TableViewController2: UITableViewController {
   private func initSwipeCellXib() {
     let nib = UINib(nibName: "SwipeCell", bundle: nil)
     tableView.registerNib(nib, forCellReuseIdentifier: "cell")
+    tableView.registerClass(SwipeCell.self, forCellReuseIdentifier: "cell")
   }
   
   private func initDefaultTableViewLayout() {
@@ -106,25 +106,29 @@ class TableViewController2: UITableViewController {
   // MARK: - DOUBLE TAP COLLAPSE
   internal func gestureRecognizedDoubleTap(sender: UITapGestureRecognizer) {
     let location = sender.locationInView(tableView)
+    toggleCollapse(location: location)
+  }
+  
+  private func toggleCollapse(location location: CGPoint) {
     if let indexPath = tableView.indexPathForRowAtPoint(location) {
-      if !viewData[indexPath.row].collapsed {
-        collapseSection(index: indexPath.row)
+      let collapsed = viewData[indexPath.row].collapsed
+      if collapsed {
+        expandSection(indexPath: indexPath)
       } else {
-        expandSection(index: indexPath.row)
+        collapseSection(indexPath: indexPath)
       }
+      tableViewReloadRow(indexRow: indexPath.row)
     }
   }
   
-  
-  private func expandSection(index index: Int) {
+  private func expandSection(indexPath indexPath: NSIndexPath) {
     let viewItems = viewData
     let realItems = realData
-    let parent = viewItems[index]
-    let firstChild = index+1
+    let parent = viewItems[indexPath.row]
+    let firstChildIndex = indexPath.row+1
     
     // parent
     parent.collapsed = !parent.collapsed
-    tableViewReloadRow(indexRow: index)
     
     // children
     var children = [ViewData]()
@@ -148,50 +152,47 @@ class TableViewController2: UITableViewController {
     
     // insert backwards
     for child in children {
-      tableViewInsertRow(item: child, indexRow: firstChild)
+      tableViewInsertRow(item: child, indexRow: firstChildIndex)
     }
   }
   
-  private func collapseSection(index index: Int){
+  private func collapseSection(indexPath indexPath: NSIndexPath) {
     let viewItems = viewData
-    let parent = viewItems[index]
-    let firstChild = index+1
+    let parent = viewItems[indexPath.row]
+    let firstChildIndex = indexPath.row+1
     
     // parent
     parent.collapsed = !parent.collapsed
-    tableViewReloadRow(indexRow: index)
+    //    tableViewReloadRow(indexRow: indexPath.row)
     
     // children
-    for i in firstChild..<viewItems.count {
+    for i in firstChildIndex..<viewItems.count {
       let child = viewItems[i]
       if child.indent <= parent.indent {
         break
       }
       child.collapsed = parent.collapsed
       // remove forwards
-      tableViewRemoveRow(indexRow: firstChild)
+      tableViewRemoveRow(indexRow: firstChildIndex)
     }
   }
   
   
-  
-  // MARK: - SWIPE INDENT
+  // MARK: - SWIPE TO INDENT
   private func toggleIndent(cell cell:UITableViewCell, increase: Bool) {
     if let indexPath = tableView.indexPathForCell(cell) {
-      print(indexPath.row)
-      indentSection(index: indexPath.row, increase: increase)
+      indentSection(indexPath: indexPath, increase: increase)
     }
   }
   
-  private func indentSection(index index: Int, increase: Bool) {
-    let viewItems = viewData
-    let realItems = realData
-    let parent = viewItems[index]
+  private func indentSection(indexPath indexPath: NSIndexPath, increase: Bool) {
+    let parent = viewData[indexPath.row]
+    
+    // children
     if parent.collapsed {
-      // children
       var parentFound = false
-      for i in 0..<realItems.count {
-        let child = realItems[i]
+      for i in 0..<realData.count {
+        let child = realData[i]
         if child === parent {
           parentFound = true
           continue
@@ -201,13 +202,14 @@ class TableViewController2: UITableViewController {
           if child.indent <= parent.indent {
             break
           }
-          child.indent += (increase) ? 1 : (child.indent == 0) ? 0 : -1
+          child.indent += (increase) ? 1 : (parent.indent == 0) ? 0 : -1
         }
       }
     }
+    
     // parent
     parent.indent += (increase) ? 1 : (parent.indent == 0) ? 0 : -1
-    tableViewReloadRow(indexRow: index)
+    tableViewReloadRow(indexRow: indexPath.row)
   }
   
   
@@ -239,31 +241,35 @@ class TableViewController2: UITableViewController {
   
   
   // MARK: - TABLEVIEW CELL
-  private func initSwipeCell(indexPath indexPath: NSIndexPath) -> SwipeCell {
+  private func initSwipeCell(indexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SwipeCell
     cell.swipeDelegate = self
+    cell.firstTrigger = 0.25
+    cell.secondTrigger = 0.55
     
-    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right1, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "cross")), color: .blueColor()) { (cell) -> () in
-      //      self.deleteCell(cell: cell)
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Left1, swipeMode: SwipeCell.SwipeMode.Bounce, icon: UIImageView(image: UIImage(named: "list")), color: .brownColor()) { (cell) -> () in
+      self.toggleIndent(cell: cell, increase: true)
+    }
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right1, swipeMode: SwipeCell.SwipeMode.Bounce, icon: UIImageView(image: UIImage(named: "list")), color: .brownColor()) { (cell) -> () in
       self.toggleIndent(cell: cell, increase: false)
     }
-    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right2, swipeMode: SwipeCell.SwipeMode.Bounce, icon: UIImageView(image: UIImage(named: "list")), color: .redColor()) { (cell) -> () in
-      //      self.deleteCell(cell: cell)
+    
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Left2, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "check")), color: .greenColor()) { (cell) -> () in
+      self.toggleDelete(cell: cell)
     }
-    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right3, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "clock")), color: .orangeColor()) { (cell) -> () in
-      //      self.deleteCell(cell: cell)
-    }
-    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right4, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "check")), color: .greenColor()) { (cell) -> () in
-      //      self.deleteCell(cell: cell)
-    }
-    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Left1, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "check")), color: .purpleColor()) { (cell) -> () in
-      //      self.deleteCell(cell: cell)
-      self.toggleIndent(cell: cell, increase: true)
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right2, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "cross")), color: .redColor()) { (cell) -> () in
+      self.toggleDelete(cell: cell)
     }
     
     return cell
   }
   
+  
+  private func toggleDelete(cell cell:UITableViewCell) {
+    if let index = tableView.indexPathForCell(cell) {
+      tableViewRemoveRow(indexRow: index.row)
+    }
+  }
   
   
   private func indentCell() {
@@ -282,24 +288,30 @@ class TableViewController2: UITableViewController {
     
   }
   
-  
-  private func initDefaultCellLayout(cell cell: SwipeCell) -> SwipeCell {
+  private func initDefaultCellLayout(cell cell: UITableViewCell) -> UITableViewCell {
     cell.separatorInset = UIEdgeInsetsZero
     cell.layoutMargins = UIEdgeInsetsZero
     cell.selectionStyle = .None
     return cell
   }
   
-  private func initCellLayout(cell cell: SwipeCell, indexPath: NSIndexPath) -> SwipeCell {
+  private func initCellLayout(cell cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
+    // data
     let item = viewData[indexPath.row]
-    var indent = " "
-    for _ in 0...item.indent*8 {
-      indent += " "
-    }
     
-    cell.textLabel?.text = indent + item.name
+    // indent
+    var indent = " "
+    for _ in 0..<item.indent {
+      indent += "      "
+    }
+    cell.textLabel?.text = indent + item.name + " " + String(item.indent)
+    
+    // collapse
+    cell.accessoryType = item.collapsed ? .DisclosureIndicator :.None
+    
     return cell
   }
+  
   
   // MARK: - DATA
   private func loadTestData() {
@@ -323,12 +335,12 @@ class TableViewController2: UITableViewController {
     viewData.append(ViewData(name: "2.3.2", indent: 2, collapsed: false))
     viewData.append(ViewData(name: "2.4.0", indent: 1, collapsed: false))
     viewData.append(ViewData(name: "3.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "4.0.0", indent: 0, collapsed: false))
     viewData.append(ViewData(name: "3.1.0", indent: 1, collapsed: false))
     viewData.append(ViewData(name: "3.1.1", indent: 2, collapsed: false))
     viewData.append(ViewData(name: "3.1.2", indent: 2, collapsed: false))
     viewData.append(ViewData(name: "3.1.3", indent: 2, collapsed: false))
     viewData.append(ViewData(name: "3.2.0", indent: 1, collapsed: false))
+    viewData.append(ViewData(name: "4.0.0", indent: 0, collapsed: false))
     viewData.append(ViewData(name: "5.0.0", indent: 0, collapsed: false))
     viewData.append(ViewData(name: "5.1.0", indent: 1, collapsed: false))
     viewData.append(ViewData(name: "5.2.0", indent: 1, collapsed: false))
@@ -364,6 +376,6 @@ class TableViewController2: UITableViewController {
     viewData.append(ViewData(name: "9.1.3", indent: 0, collapsed: false))
     viewData.append(ViewData(name: "9.2.0", indent: 0, collapsed: false))
     viewData.append(ViewData(name: "9.0.0", indent: 0, collapsed: false))
-    realData  = viewData
+    realData = viewData
   }
 }

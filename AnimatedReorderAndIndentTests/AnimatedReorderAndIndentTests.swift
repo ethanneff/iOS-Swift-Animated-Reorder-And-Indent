@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import DragAndDropTableViewCell1
 
 class DragAndDropTableViewCell1Tests: XCTestCase {
     
