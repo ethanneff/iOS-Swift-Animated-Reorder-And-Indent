@@ -16,7 +16,7 @@
 		67D3E82E1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E82D1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift */; };
 		67D3E83C1C6291590060F7E2 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E83B1C6291590060F7E2 /* TableViewController.swift */; };
 		67DA9CE01CAADEAC009FF9BA /* CollapseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA9CDF1CAADEAC009FF9BA /* CollapseCell.swift */; };
-		67DA9CE41CAB0D64009FF9BA /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA9CE31CAB0D64009FF9BA /* Data.swift */; };
+		67DA9CE41CAB0D64009FF9BA /* TableViewControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA9CE31CAB0D64009FF9BA /* TableViewControllerData.swift */; };
 		67DA9CE61CAB3279009FF9BA /* TableViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA9CE51CAB3279009FF9BA /* TableViewController2.swift */; };
 		67DA9CE81CAB328E009FF9BA /* test.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67DA9CE71CAB328E009FF9BA /* test.storyboard */; };
 		67E4BFD51C9A4CCF00BE4B10 /* SwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */; };
@@ -56,7 +56,7 @@
 		67D3E82F1C6291250060F7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67D3E83B1C6291590060F7E2 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		67DA9CDF1CAADEAC009FF9BA /* CollapseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapseCell.swift; sourceTree = "<group>"; };
-		67DA9CE31CAB0D64009FF9BA /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		67DA9CE31CAB0D64009FF9BA /* TableViewControllerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerData.swift; sourceTree = "<group>"; };
 		67DA9CE51CAB3279009FF9BA /* TableViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController2.swift; sourceTree = "<group>"; };
 		67DA9CE71CAB328E009FF9BA /* test.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = test.storyboard; sourceTree = "<group>"; };
 		67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCell.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 				67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */,
 				67E4BFD41C9A4CCF00BE4B10 /* SwipeCell.xib */,
 				67DA9CDF1CAADEAC009FF9BA /* CollapseCell.swift */,
-				67DA9CE31CAB0D64009FF9BA /* Data.swift */,
+				67DA9CE31CAB0D64009FF9BA /* TableViewControllerData.swift */,
 				67DA9CE71CAB328E009FF9BA /* test.storyboard */,
 				67DA9CE51CAB3279009FF9BA /* TableViewController2.swift */,
 			);
@@ -287,7 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67DA9CE41CAB0D64009FF9BA /* Data.swift in Sources */,
+				67DA9CE41CAB0D64009FF9BA /* TableViewControllerData.swift in Sources */,
 				6769AB1E1C98A0DC00EB0E5F /* ReorderCell.swift in Sources */,
 				67D3E80E1C6291250060F7E2 /* AppDelegate.swift in Sources */,
 				67DA9CE61CAB3279009FF9BA /* TableViewController2.swift in Sources */,

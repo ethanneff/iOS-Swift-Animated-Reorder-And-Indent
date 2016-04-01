@@ -10,8 +10,8 @@ import UIKit
 
 class TableViewController2: UITableViewController {
   // MARK: - PROPERTIES
-  var viewData = [ViewData]()
-  var realData = [ViewData]()
+  var viewData = [TableViewControllerData]()
+  var realData = [TableViewControllerData]()
   var gestureDoubleTap: UITapGestureRecognizer?
   
   // MARK: - LOAD
@@ -22,7 +22,7 @@ class TableViewController2: UITableViewController {
     initSwipeCellXib()
     initDefaultTableViewLayout()
     initGestureDoubleTapToCollapse()
-    loadTestData()
+    initTestData()
   }
   
   // MARK: - UNLOAD
@@ -42,6 +42,11 @@ class TableViewController2: UITableViewController {
   
   
   // MARK: - TABLEVIEW
+  private func initTestData() {
+    viewData = TableViewControllerData.loadTestData()
+    realData = viewData
+  }
+  
   private func initReorderTableView() {
     tableView = ReorderTableView(tableView: tableView)
     tableView.delegate = self
@@ -76,7 +81,7 @@ class TableViewController2: UITableViewController {
     tableView.endUpdates()
   }
   
-  func tableViewInsertRow(item item: ViewData, indexRow: Int) {
+  func tableViewInsertRow(item item: TableViewControllerData, indexRow: Int) {
     tableView.beginUpdates()
     viewData.insert(item, atIndex: indexRow)
     tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: indexRow, inSection: 0)], withRowAnimation: .Fade)
@@ -117,7 +122,6 @@ class TableViewController2: UITableViewController {
       } else {
         collapseSection(indexPath: indexPath)
       }
-      tableViewReloadRow(indexRow: indexPath.row)
     }
   }
   
@@ -129,9 +133,10 @@ class TableViewController2: UITableViewController {
     
     // parent
     parent.collapsed = !parent.collapsed
+    tableViewReloadRow(indexRow: indexPath.row)
     
     // children
-    var children = [ViewData]()
+    var children = [TableViewControllerData]()
     var parentFound = false
     for i in 0..<realItems.count {
       // real items since already removed
@@ -158,12 +163,12 @@ class TableViewController2: UITableViewController {
   
   private func collapseSection(indexPath indexPath: NSIndexPath) {
     let viewItems = viewData
-    let parent = viewItems[indexPath.row]
+    let parent = viewData[indexPath.row]
     let firstChildIndex = indexPath.row+1
     
     // parent
     parent.collapsed = !parent.collapsed
-    //    tableViewReloadRow(indexRow: indexPath.row)
+    tableViewReloadRow(indexRow: indexPath.row)
     
     // children
     for i in firstChildIndex..<viewItems.count {
@@ -182,6 +187,7 @@ class TableViewController2: UITableViewController {
   private func toggleIndent(cell cell:UITableViewCell, increase: Bool) {
     if let indexPath = tableView.indexPathForCell(cell) {
       indentSection(indexPath: indexPath, increase: increase)
+      tableViewReloadRow(indexRow: indexPath.row)
     }
   }
   
@@ -209,20 +215,30 @@ class TableViewController2: UITableViewController {
     
     // parent
     parent.indent += (increase) ? 1 : (parent.indent == 0) ? 0 : -1
-    tableViewReloadRow(indexRow: indexPath.row)
   }
   
   
   // MARK: - REORDER
   override func reorderBefore(fromIndexPath: NSIndexPath) {
+    collapseSection(indexPath: fromIndexPath)
+    
+    
     // collapse cell/group
     // return new index
   }
+  
+  override func reorderDuring(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+    // needed to prevent re-appearing of lifted cell after tableview scrolls out of focus
+    swap(&viewData[fromIndexPath.row], &viewData[toIndexPath.row])
+  }
+  
   
   override func reorderAfter(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
     // move cell
     // uncollapse cell/group
   }
+  
+
   
   
   
@@ -243,6 +259,7 @@ class TableViewController2: UITableViewController {
   // MARK: - TABLEVIEW CELL
   private func initSwipeCell(indexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SwipeCell
+    
     cell.swipeDelegate = self
     cell.firstTrigger = 0.25
     cell.secondTrigger = 0.55
@@ -310,72 +327,5 @@ class TableViewController2: UITableViewController {
     cell.accessoryType = item.collapsed ? .DisclosureIndicator :.None
     
     return cell
-  }
-  
-  
-  // MARK: - DATA
-  private func loadTestData() {
-    viewData.removeAll()
-    viewData.append(ViewData(name: "1.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "1.1.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "1.2.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "1.2.1", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "1.2.2", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "1.3.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "1.3.1", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "1.3.2", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "1.4.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "2.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "2.1.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "2.2.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "2.2.1", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "2.2.2", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "2.3.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "2.3.1", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "2.3.2", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "2.4.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "3.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "3.1.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "3.1.1", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "3.1.2", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "3.1.3", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "3.2.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "4.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "5.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "5.1.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "5.2.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "5.2.1", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "5.2.2", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "5.3.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "5.4.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "6.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "6.1.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "6.2.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "6.2.1", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "6.2.2", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "6.3.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "6.4.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "7.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "7.1.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "7.1.1", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "7.1.2", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "7.1.3", indent: 2, collapsed: false))
-    viewData.append(ViewData(name: "7.2.0", indent: 1, collapsed: false))
-    viewData.append(ViewData(name: "8.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.1.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.1.1", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.1.2", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.1.3", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.2.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.0.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.1.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.1.1", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.1.2", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.1.3", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.2.0", indent: 0, collapsed: false))
-    viewData.append(ViewData(name: "9.0.0", indent: 0, collapsed: false))
-    realData = viewData
   }
 }

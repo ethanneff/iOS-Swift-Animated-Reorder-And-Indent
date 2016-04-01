@@ -5,11 +5,13 @@ import UIKit
 protocol ReorderTableViewDelegate: class {
   func reorderBefore(fromIndexPath: NSIndexPath)
   func reorderAfter(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath)
+  func reorderDuring(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath)
 }
 
 extension UITableViewController: ReorderTableViewDelegate {
   func reorderBefore(fromIndexPath: NSIndexPath) {}
   func reorderAfter(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {}
+  func reorderDuring(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {}
 }
 
 class ReorderTableView: UITableView {
@@ -39,6 +41,7 @@ class ReorderTableView: UITableView {
   private enum ReorderDelegateNotifications {
     case Before
     case After
+    case During
   }
   
   private func reorderNotifyDelegate(notification notification: ReorderDelegateNotifications, fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath?) {
@@ -46,6 +49,7 @@ class ReorderTableView: UITableView {
     switch notification {
     case .Before: reorderDelegate?.reorderBefore(fromIndexPath)
     case .After: reorderDelegate?.reorderAfter(fromIndexPath, toIndexPath: toIndexPath!)
+    case .During: reorderDelegate?.reorderDuring(fromIndexPath, toIndexPath: toIndexPath!)
     }
   }
   
@@ -132,7 +136,7 @@ class ReorderTableView: UITableView {
       }
     }
   }
-
+  
   
   // MARK: - BEGIN
   private func reorderLoopToDetectScrolling() {
@@ -258,6 +262,7 @@ class ReorderTableView: UITableView {
     if let nextIndexPath = indexPathForRowAtPoint(location), let prevIndexPath = reorderPreviousIndexPath {
       if nextIndexPath != prevIndexPath {
         moveRowAtIndexPath(prevIndexPath, toIndexPath: nextIndexPath)
+        reorderNotifyDelegate(notification: .During, fromIndexPath: prevIndexPath, toIndexPath: nextIndexPath)
         reorderPreviousIndexPath = nextIndexPath
       }
     }
