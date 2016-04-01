@@ -118,9 +118,9 @@
 				67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */,
 				67E4BFD41C9A4CCF00BE4B10 /* SwipeCell.xib */,
 				67DA9CDF1CAADEAC009FF9BA /* CollapseCell.swift */,
-				67DA9CE31CAB0D64009FF9BA /* TableViewControllerData.swift */,
 				67DA9CE71CAB328E009FF9BA /* test.storyboard */,
 				67DA9CE51CAB3279009FF9BA /* TableViewController2.swift */,
+				67DA9CE31CAB0D64009FF9BA /* TableViewControllerData.swift */,
 			);
 			path = AnimatedReorderAndIndent;
 			sourceTree = "<group>";

@@ -41,10 +41,8 @@ class TableViewController: UITableViewController {
   
   // MARK: - BUTTONS
   @IBAction func right(button: UIBarButtonItem) {
-    print("right")
   }
   @IBAction func left(button: UIBarButtonItem) {
-    print("left")
   }
   
   
@@ -86,11 +84,9 @@ class TableViewController: UITableViewController {
   // MARK: - HELPER METHODS
   func deleteCell(cell cell: UITableViewCell) {
     tableView.beginUpdates()
-    //    viewData.removeAtIndex(viewData.indexOf((cell.textLabel?.text)!)!)
     tableView.indexPathForCell(cell)
     tableView.deleteRowsAtIndexPaths([self.tableView.indexPathForCell(cell)!], withRowAnimation: .Fade)
     tableView.endUpdates()
-    print(viewData)
   }
   
   
@@ -161,7 +157,7 @@ class TableViewController: UITableViewController {
   }
   
   // MARK: - REORDER
-  override func reorderBefore(fromIndexPath: NSIndexPath) {
+  override func reorderBeforeLift(fromIndexPath: NSIndexPath) {
     // collapse all rows that are not the correct indent level
     collapseCellsBelow(indexRow: fromIndexPath.row)
     let newIndex = collapseCellsAbove(indexRow: fromIndexPath.row)
@@ -173,7 +169,7 @@ class TableViewController: UITableViewController {
   }
   
   
-  override func reorderAfter(fromIndexPath: NSIndexPath, toIndexPath:NSIndexPath) {
+  override func reorderAfterDrop(fromIndexPath: NSIndexPath, toIndexPath:NSIndexPath) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
       //      var realIndex = toIndexPath
       //      if fromIndexPath.row != toIndexPath.row {

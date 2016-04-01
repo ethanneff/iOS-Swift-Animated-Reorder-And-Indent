@@ -33,11 +33,15 @@ class TableViewController2: UITableViewController {
   }
   
   @IBAction func left(sender: AnyObject) {
-    //    tableViewReloadData()
+    viewData.removeAll()
+    realData.removeAll()
+    initTestData()
     tableView.reloadData()
   }
   
   @IBAction func right(sender: AnyObject) {
+    print(viewData)
+    print(realData)
   }
   
   
@@ -74,23 +78,23 @@ class TableViewController2: UITableViewController {
   }
   
   // MARK: - TABLEVIEW MODIFICATION
-  func tableViewRemoveRow(indexRow indexRow: Int) {
+  func tableViewRemoveRow(indexPath indexPath: NSIndexPath) {
     tableView.beginUpdates()
-    viewData.removeAtIndex(indexRow)
-    tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: indexRow, inSection: 0)], withRowAnimation: .Fade)
+    viewData.removeAtIndex(indexPath.row)
+    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     tableView.endUpdates()
   }
   
-  func tableViewInsertRow(item item: TableViewControllerData, indexRow: Int) {
+  func tableViewInsertRow(indexPath indexPath: NSIndexPath, data: TableViewControllerData) {
     tableView.beginUpdates()
-    viewData.insert(item, atIndex: indexRow)
-    tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: indexRow, inSection: 0)], withRowAnimation: .Fade)
+    viewData.insert(data, atIndex: indexPath.row)
+    tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     tableView.endUpdates()
   }
   
-  func tableViewReloadRow(indexRow indexRow: Int) {
+  func tableViewReloadRow(indexPath indexPath: NSIndexPath) {
     tableView.beginUpdates()
-    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: indexRow, inSection: 0)], withRowAnimation: .Fade)
+    tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     tableView.endUpdates()
   }
   
@@ -129,11 +133,11 @@ class TableViewController2: UITableViewController {
     let viewItems = viewData
     let realItems = realData
     let parent = viewItems[indexPath.row]
-    let firstChildIndex = indexPath.row+1
+    let childIndexPath = NSIndexPath(forRow: indexPath.row+1, inSection: indexPath.section)
     
     // parent
-    parent.collapsed = !parent.collapsed
-    tableViewReloadRow(indexRow: indexPath.row)
+    parent.collapsed = false
+    tableViewReloadRow(indexPath: indexPath)
     
     // children
     var children = [TableViewControllerData]()
@@ -157,40 +161,37 @@ class TableViewController2: UITableViewController {
     
     // insert backwards
     for child in children {
-      tableViewInsertRow(item: child, indexRow: firstChildIndex)
+      tableViewInsertRow(indexPath: childIndexPath, data: child)
     }
   }
   
   private func collapseSection(indexPath indexPath: NSIndexPath) {
     let viewItems = viewData
     let parent = viewData[indexPath.row]
-    let firstChildIndex = indexPath.row+1
+    let childIndexPath = NSIndexPath(forRow: indexPath.row+1, inSection: indexPath.section)
+    let child = childIndexPath.row > viewData.count-1 ? viewData[viewData.count-1] : viewData[childIndexPath.row]
     
-    // parent
-    parent.collapsed = !parent.collapsed
-    tableViewReloadRow(indexRow: indexPath.row)
-    
-    // children
-    for i in firstChildIndex..<viewItems.count {
-      let child = viewItems[i]
-      if child.indent <= parent.indent {
-        break
+    // only collpase if parent has a child
+    if child.indent > parent.indent {
+      // parent
+      parent.collapsed = true
+      tableViewReloadRow(indexPath: indexPath)
+      
+      // children
+      for i in childIndexPath.row..<viewItems.count {
+        let child = viewItems[i]
+        if child.indent <= parent.indent {
+          break
+        }
+        child.collapsed = true
+        // remove forwards
+        tableViewRemoveRow(indexPath: childIndexPath)
       }
-      child.collapsed = parent.collapsed
-      // remove forwards
-      tableViewRemoveRow(indexRow: firstChildIndex)
     }
   }
   
   
   // MARK: - SWIPE TO INDENT
-  private func toggleIndent(cell cell:UITableViewCell, increase: Bool) {
-    if let indexPath = tableView.indexPathForCell(cell) {
-      indentSection(indexPath: indexPath, increase: increase)
-      tableViewReloadRow(indexRow: indexPath.row)
-    }
-  }
-  
   private func indentSection(indexPath indexPath: NSIndexPath, increase: Bool) {
     let parent = viewData[indexPath.row]
     
@@ -215,32 +216,34 @@ class TableViewController2: UITableViewController {
     
     // parent
     parent.indent += (increase) ? 1 : (parent.indent == 0) ? 0 : -1
+    tableViewReloadRow(indexPath: indexPath)
   }
   
   
   // MARK: - REORDER
-  override func reorderBefore(fromIndexPath: NSIndexPath) {
+  override func reorderBeforeLift(fromIndexPath: NSIndexPath) {
+    // collapse
     collapseSection(indexPath: fromIndexPath)
-    
-    
-    // collapse cell/group
-    // return new index
+  }
+  override func reorderAfterLift(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+    // update controller data for collapseSection
+    let direction = fromIndexPath.row > toIndexPath.row ? 1 : 0
+    viewData.insert(viewData[fromIndexPath.row], atIndex: toIndexPath.row)
+    viewData.removeAtIndex(fromIndexPath.row+direction)
   }
   
-  override func reorderDuring(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+  override func reorderDuringMove(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
     // needed to prevent re-appearing of lifted cell after tableview scrolls out of focus
     swap(&viewData[fromIndexPath.row], &viewData[toIndexPath.row])
   }
   
-  
-  override func reorderAfter(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    // move cell
-    // uncollapse cell/group
+  override func reorderAfterDrop(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+    // expand and update controller data
+    expandSection(indexPath: toIndexPath)
+    realData = viewData
   }
-  
 
-  
-  
+
   
   // MARK: - TABLEVIEW DATA SOURCE
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -254,6 +257,9 @@ class TableViewController2: UITableViewController {
     return cell
   }
   
+  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    return 30
+  }
   
   
   // MARK: - TABLEVIEW CELL
@@ -265,27 +271,28 @@ class TableViewController2: UITableViewController {
     cell.secondTrigger = 0.55
     
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Left1, swipeMode: SwipeCell.SwipeMode.Bounce, icon: UIImageView(image: UIImage(named: "list")), color: .brownColor()) { (cell) -> () in
-      self.toggleIndent(cell: cell, increase: true)
+      if let indexPath = self.tableView.indexPathForCell(cell) {
+        self.indentSection(indexPath: indexPath, increase: true)
+      }
     }
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right1, swipeMode: SwipeCell.SwipeMode.Bounce, icon: UIImageView(image: UIImage(named: "list")), color: .brownColor()) { (cell) -> () in
-      self.toggleIndent(cell: cell, increase: false)
+      if let indexPath = self.tableView.indexPathForCell(cell) {
+        self.indentSection(indexPath: indexPath, increase: false)
+      }
     }
     
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Left2, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "check")), color: .greenColor()) { (cell) -> () in
-      self.toggleDelete(cell: cell)
+      if let indexPath = self.tableView.indexPathForCell(cell) {
+        self.tableViewRemoveRow(indexPath: indexPath)
+      }
     }
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right2, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "cross")), color: .redColor()) { (cell) -> () in
-      self.toggleDelete(cell: cell)
+      if let indexPath = self.tableView.indexPathForCell(cell) {
+        self.tableViewRemoveRow(indexPath: indexPath)
+      }
     }
     
     return cell
-  }
-  
-  
-  private func toggleDelete(cell cell:UITableViewCell) {
-    if let index = tableView.indexPathForCell(cell) {
-      tableViewRemoveRow(indexRow: index.row)
-    }
   }
   
   
@@ -321,7 +328,7 @@ class TableViewController2: UITableViewController {
     for _ in 0..<item.indent {
       indent += "      "
     }
-    cell.textLabel?.text = indent + item.name + " " + String(item.indent)
+    cell.textLabel?.text = indent + item.name
     
     // collapse
     cell.accessoryType = item.collapsed ? .DisclosureIndicator :.None
