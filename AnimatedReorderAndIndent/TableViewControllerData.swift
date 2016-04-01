@@ -1,9 +1,5 @@
 import Foundation
 
-//protocol Arrayable {
-//  var items: [ViewDataItem] { get set }
-//}
-
 protocol Collapsable {
   var collapsed: Bool { get set }
 }
@@ -11,49 +7,6 @@ protocol Collapsable {
 protocol Indentable {
   var indent: Int { get }
 }
-
-//class ViewData: Arrayable, CustomStringConvertible {
-//  var items: [ViewDataItem] = [ViewDataItem]()
-//  var description: String {
-//    if items.count == 0 {
-//      return "[]"
-//    }
-//    var output = "["
-//    for i in 0..<items.count {
-//      output += "\n  " + items[i].description + ","
-//    }
-//    output += "\n]"
-//    return output
-//  }
-//  
-//  func toggleCollapse(itemIndex: Int, includeChildren: Bool) {
-//    let parent = items[itemIndex]
-//    parent.collapsed = !parent.collapsed
-//    if includeChildren {
-//      for i in itemIndex+1..<items.count {
-//        let child = items[i]
-//        if child.indent <= parent.indent {
-//          break
-//        }
-//        child.collapsed = parent.collapsed
-//      }
-//    }
-//  }
-//  
-//  func toggleIndent(itemIndex: Int, increase: Bool, includeChildren: Bool) {
-//    let parent = items[itemIndex]
-//    if includeChildren {
-//      for i in itemIndex+1..<items.count {
-//        let child = items[i]
-//        if child.indent <= parent.indent {
-//          break
-//        }
-//        child.indent += (increase) ? 1 : (child.indent == 0) ? 0 : -1
-//      }
-//    }
-//    parent.indent += (increase) ? 1 : (parent.indent == 0) ? 0 : -1
-//  }
-//}
 
 class TableViewControllerData: Indentable, Collapsable, CustomStringConvertible {
   var name: String
@@ -114,27 +67,29 @@ class TableViewControllerData: Indentable, Collapsable, CustomStringConvertible 
     array.append(TableViewControllerData(name: "6.2.2", indent: 2, collapsed: false))
     array.append(TableViewControllerData(name: "6.3.0", indent: 1, collapsed: false))
     array.append(TableViewControllerData(name: "6.4.0", indent: 1, collapsed: false))
+    array.append(TableViewControllerData(name: "8.0.0", indent: 0, collapsed: false))
     array.append(TableViewControllerData(name: "7.0.0", indent: 0, collapsed: false))
     array.append(TableViewControllerData(name: "7.1.0", indent: 1, collapsed: false))
     array.append(TableViewControllerData(name: "7.1.1", indent: 2, collapsed: false))
     array.append(TableViewControllerData(name: "7.1.2", indent: 2, collapsed: false))
     array.append(TableViewControllerData(name: "7.1.3", indent: 2, collapsed: false))
     array.append(TableViewControllerData(name: "7.2.0", indent: 1, collapsed: false))
-    array.append(TableViewControllerData(name: "8.0.0", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.0.0", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.1.0", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.1.1", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.1.2", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.1.3", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.2.0", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.0.0", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.0.0", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.1.0", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.1.1", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.1.2", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.1.3", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.2.0", indent: 0, collapsed: false))
-//    array.append(TableViewControllerData(name: "9.0.0", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "7.2.1", indent: 2, collapsed: false))
+    array.append(TableViewControllerData(name: "7.2.2", indent: 2, collapsed: false))
+    array.append(TableViewControllerData(name: "9.0.0", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.1.0", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.1.1", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.1.2", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.1.3", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.2.0", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.0.0", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.0.0", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.1.0", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.1.1", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.1.2", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.1.3", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.2.0", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "9.0.0", indent: 0, collapsed: false))
     return array
   }
 }
