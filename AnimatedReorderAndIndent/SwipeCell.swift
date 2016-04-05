@@ -20,8 +20,8 @@ class SwipeCell: UITableViewCell {
   // MARK: - PROPERTIES
   
   // constants
-  let kDurationLowLimit: NSTimeInterval = 0.25;
-  let kDurationHighLimit: NSTimeInterval = 0.1;
+  let kDurationLowLimit: NSTimeInterval = 0.25
+  let kDurationHighLimit: NSTimeInterval = 0.1
   let kVelocity: CGFloat = 0.7
   let kDamping: CGFloat = 0.5
   
@@ -183,6 +183,7 @@ class SwipeCell: UITableViewCell {
   }
   
   override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    super.gestureRecognizerShouldBegin(gestureRecognizer)
     // needed to allow scrolling of the tableview
     if let g = gestureRecognizer as? UIPanGestureRecognizer {
       let point: CGPoint = g.velocityInView(self)

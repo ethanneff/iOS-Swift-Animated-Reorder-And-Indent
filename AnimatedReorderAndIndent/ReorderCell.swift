@@ -85,7 +85,7 @@ class ReorderTableView: UITableView {
       addGestureRecognizer(reorderGesture)
     }
     
-    registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+//    registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
   }
   
   

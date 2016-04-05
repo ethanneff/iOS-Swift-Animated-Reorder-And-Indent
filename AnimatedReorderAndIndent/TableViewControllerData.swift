@@ -5,15 +5,16 @@ protocol Collapsable {
 }
 
 protocol Indentable {
-  var indent: Int { get }
+  var indent: Int { get set }
 }
+
 
 class TableViewControllerData: Indentable, Collapsable, CustomStringConvertible {
   var name: String
   var collapsed: Bool
   var indent: Int
   var description: String {
-    return "\n[indent: \(indent), collapsed: \(collapsed), name: \(name)]"
+    return "\(name)]"
   }
   
   init(name: String, indent: Int, collapsed: Bool) {
@@ -28,6 +29,17 @@ class TableViewControllerData: Indentable, Collapsable, CustomStringConvertible 
   
   class func loadTestData() -> [TableViewControllerData] {
     var array = [TableViewControllerData]()
+    array.append(TableViewControllerData(name: "0", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "1", indent: 1, collapsed: false))
+    array.append(TableViewControllerData(name: "2", indent: 1, collapsed: false))
+    array.append(TableViewControllerData(name: "3", indent: 2, collapsed: false))
+    array.append(TableViewControllerData(name: "4", indent: 3, collapsed: false))
+    array.append(TableViewControllerData(name: "5", indent: 2, collapsed: false))
+    array.append(TableViewControllerData(name: "6", indent: 0, collapsed: false))
+    array.append(TableViewControllerData(name: "7", indent: 1, collapsed: false))
+    array.append(TableViewControllerData(name: "8", indent: 2, collapsed: false))
+    array.append(TableViewControllerData(name: "9", indent: 0, collapsed: false))
+    
     array.append(TableViewControllerData(name: "1.0.0", indent: 0, collapsed: false))
     array.append(TableViewControllerData(name: "1.1.0", indent: 1, collapsed: false))
     array.append(TableViewControllerData(name: "1.2.0", indent: 1, collapsed: false))
@@ -40,7 +52,6 @@ class TableViewControllerData: Indentable, Collapsable, CustomStringConvertible 
     array.append(TableViewControllerData(name: "2.0.0", indent: 0, collapsed: false))
     array.append(TableViewControllerData(name: "2.1.0", indent: 1, collapsed: false))
     array.append(TableViewControllerData(name: "2.2.0", indent: 1, collapsed: false))
-    array.append(TableViewControllerData(name: "2.2.1", indent: 2, collapsed: false))
     array.append(TableViewControllerData(name: "2.2.2", indent: 2, collapsed: false))
     array.append(TableViewControllerData(name: "2.3.0", indent: 1, collapsed: false))
     array.append(TableViewControllerData(name: "2.3.1", indent: 2, collapsed: false))

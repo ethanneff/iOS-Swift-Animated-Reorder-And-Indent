@@ -139,9 +139,6 @@ class TableViewController2: UITableViewController {
     parent.collapsed = false
     tableViewReloadRow(indexPath: indexPath)
     
-    print(viewData)
-    print(realData)
-    
     // children
     var children = [TableViewControllerData]()
     var parentFound = false
@@ -194,7 +191,6 @@ class TableViewController2: UITableViewController {
   }
   
   
-  
   // MARK: - SWIPE TO INDENT
   private func indentSection(indexPath indexPath: NSIndexPath, increase: Bool) {
     let parent = viewData[indexPath.row]
@@ -242,39 +238,40 @@ class TableViewController2: UITableViewController {
   }
   
   override func reorderAfterDrop(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    // expand and update controller data
+    let originalViewCount = viewData.count-1
     expandSection(indexPath: toIndexPath)
-    updateDataOrder(fromIndexPath: fromIndexPath, toIndexPath: toIndexPath)
+    tableView.scrollToRowAtIndexPath(toIndexPath, atScrollPosition: .Middle, animated: true)
+    if toIndexPath.row == originalViewCount {
+      
+    }
+    realData = viewData
+    print(realData)
   }
   
-  private func updateDataOrder(fromIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    let parent = realData[fromIndexPath.row]
-    var section = [TableViewControllerData]()
-    
-    // parent
-    section.append(parent)
-    realData.removeAtIndex(fromIndexPath.row)
-    
-    // children
-    while true {
-      if fromIndexPath.row >= realData.count {
-        break
-      }
-      let child = realData[fromIndexPath.row]
-      if child.indent <= parent.indent {
-        break
-      }
-      section.append(child)
-      realData.removeAtIndex(fromIndexPath.row)
-    }
-    
-    // move to
-    for each in section.reverse() {
-       realData.insert(each, atIndex: toIndexPath.row)
-    }
-  }
-
-
+  //  override func reorderAfterDrop(fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+  //    // move cell
+  ////    let originalViewCount = viewData.count-1
+  //    // issue moving only 1 cell
+  //
+  //    expandSection(indexPath: fromIndexPath)
+  ////        print(viewData)
+  ////    realData = viewData
+  //    // not expanding on last row
+  //    // not collapsing large groups
+  ////    print(viewData)
+  //
+  //    //    print("expanded")
+  //    //    print(viewData)
+  //    //    print(realData)
+  //    // search view for fromIndexPath
+  //    // remove from real
+  //    // uncollapse cell/group
+  ////    tableViewReloadRow(indexPath: toIndexPath)
+  //  }
+  
+  
+  
+  
   
   // MARK: - TABLEVIEW DATA SOURCE
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -298,8 +295,8 @@ class TableViewController2: UITableViewController {
     let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SwipeCell
     
     cell.swipeDelegate = self
-    cell.firstTrigger = 0.20
-    cell.secondTrigger = 0.50
+    cell.firstTrigger = 0.25
+    cell.secondTrigger = 0.55
     
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Left1, swipeMode: SwipeCell.SwipeMode.Bounce, icon: UIImageView(image: UIImage(named: "list")), color: .brownColor()) { (cell) -> () in
       if let indexPath = self.tableView.indexPathForCell(cell) {
@@ -326,6 +323,22 @@ class TableViewController2: UITableViewController {
     return cell
   }
   
+  
+  private func indentCell() {
+    
+  }
+  
+  private func unindentCell() {
+    
+  }
+  
+  private func collapseCell() {
+    
+  }
+  
+  private func expandCell() {
+    
+  }
   
   private func initDefaultCellLayout(cell cell: UITableViewCell) -> UITableViewCell {
     cell.separatorInset = UIEdgeInsetsZero
