@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6755D6C51CB094060060AE35 /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6755D6C41CB094060060AE35 /* TasksTableViewController.swift */; };
 		6755D6C71CB094150060AE35 /* TasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6755D6C61CB094150060AE35 /* TasksTableViewCell.swift */; };
-		6755D6C91CB094B30060AE35 /* Tasks.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6755D6C81CB094B30060AE35 /* Tasks.storyboard */; };
+		6755D6C91CB094B30060AE35 /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6755D6C81CB094B30060AE35 /* Menu.storyboard */; };
 		6755D6D31CB0C4D20060AE35 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6755D6D21CB0C4D20060AE35 /* Defaults.swift */; };
 		6755D6D51CB0C55C0060AE35 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6755D6D41CB0C55C0060AE35 /* Utils.swift */; };
 		6755D6D91CB2BEA00060AE35 /* CollapseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6755D6D81CB2BEA00060AE35 /* CollapseCell.swift */; };
@@ -32,6 +32,9 @@
 		67E4BFD51C9A4CCF00BE4B10 /* SwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */; };
 		67E4BFD61C9A4CCF00BE4B10 /* SwipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67E4BFD41C9A4CCF00BE4B10 /* SwipeCell.xib */; };
 		67FD81391CB5829600F1F6B8 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FD81381CB5829600F1F6B8 /* MenuViewController.swift */; };
+		67FD813B1CB6ECE500F1F6B8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FD813A1CB6ECE500F1F6B8 /* SearchViewController.swift */; };
+		67FD81421CB6EDB600F1F6B8 /* OrganizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FD81411CB6EDB600F1F6B8 /* OrganizeViewController.swift */; };
+		67FD814A1CB6EE1C00F1F6B8 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FD81491CB6EE1C00F1F6B8 /* TaskDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +57,7 @@
 /* Begin PBXFileReference section */
 		6755D6C41CB094060060AE35 /* TasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		6755D6C61CB094150060AE35 /* TasksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewCell.swift; sourceTree = "<group>"; };
-		6755D6C81CB094B30060AE35 /* Tasks.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tasks.storyboard; sourceTree = "<group>"; };
+		6755D6C81CB094B30060AE35 /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
 		6755D6D21CB0C4D20060AE35 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		6755D6D41CB0C55C0060AE35 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		6755D6D81CB2BEA00060AE35 /* CollapseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapseCell.swift; sourceTree = "<group>"; };
@@ -83,6 +86,9 @@
 		67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCell.swift; sourceTree = "<group>"; };
 		67E4BFD41C9A4CCF00BE4B10 /* SwipeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwipeCell.xib; sourceTree = "<group>"; };
 		67FD81381CB5829600F1F6B8 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		67FD813A1CB6ECE500F1F6B8 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		67FD81411CB6EDB600F1F6B8 /* OrganizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizeViewController.swift; sourceTree = "<group>"; };
+		67FD81491CB6EE1C00F1F6B8 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,18 +116,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6755D6D61CB0C6320060AE35 /* Tasks */ = {
+		6755D6D61CB0C6320060AE35 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				6755D6C81CB094B30060AE35 /* Menu.storyboard */,
 				67FD81381CB5829600F1F6B8 /* MenuViewController.swift */,
-				6755D6C81CB094B30060AE35 /* Tasks.storyboard */,
-				6755D6C41CB094060060AE35 /* TasksTableViewController.swift */,
-				6755D6C61CB094150060AE35 /* TasksTableViewCell.swift */,
-				67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */,
-				6769AB1D1C98A0DC00EB0E5F /* ReorderCell.swift */,
-				6755D6DE1CB2C8F80060AE35 /* Models */,
+				67FD81431CB6EDB900F1F6B8 /* Organize */,
+				67FD813C1CB6ED0800F1F6B8 /* Search */,
+				67FD813D1CB6ED0D00F1F6B8 /* Task */,
+				67FD81461CB6EDCE00F1F6B8 /* Task Detail */,
 			);
-			name = Tasks;
+			name = Menu;
 			sourceTree = "<group>";
 		};
 		6755D6D71CB0C64E0060AE35 /* Globals */ = {
@@ -176,16 +181,9 @@
 		67D3E80C1C6291250060F7E2 /* AnimatedReorderAndIndent */ = {
 			isa = PBXGroup;
 			children = (
-				6755D6EB1CB33CB50060AE35 /* failed */,
-				6755D6D71CB0C64E0060AE35 /* Globals */,
-				6755D6D61CB0C6320060AE35 /* Tasks */,
-				67E4BFD21C9A4CA000BE4B10 /* other */,
-				67D3E83B1C6291590060F7E2 /* TableViewController.swift */,
-				67D3E8111C6291250060F7E2 /* Main.storyboard */,
-				67E4BFD41C9A4CCF00BE4B10 /* SwipeCell.xib */,
-				67DA9CE71CAB328E009FF9BA /* test.storyboard */,
-				67DA9CE51CAB3279009FF9BA /* TableViewController2.swift */,
-				67DA9CE31CAB0D64009FF9BA /* TableViewControllerData.swift */,
+				67FD813F1CB6ED5300F1F6B8 /* Components */,
+				67FD81401CB6ED6100F1F6B8 /* Shared */,
+				67FD814D1CB6EE9000F1F6B8 /* other */,
 			);
 			path = AnimatedReorderAndIndent;
 			sourceTree = "<group>";
@@ -208,7 +206,7 @@
 			path = AnimatedReorderAndIndentUITests;
 			sourceTree = "<group>";
 		};
-		67E4BFD21C9A4CA000BE4B10 /* other */ = {
+		67E4BFD21C9A4CA000BE4B10 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				67D3E80D1C6291250060F7E2 /* AppDelegate.swift */,
@@ -216,7 +214,106 @@
 				67D3E8161C6291250060F7E2 /* LaunchScreen.storyboard */,
 				67D3E8191C6291250060F7E2 /* Info.plist */,
 			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		67FD813C1CB6ED0800F1F6B8 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				67FD813A1CB6ECE500F1F6B8 /* SearchViewController.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		67FD813D1CB6ED0D00F1F6B8 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				6755D6C41CB094060060AE35 /* TasksTableViewController.swift */,
+				6755D6C61CB094150060AE35 /* TasksTableViewCell.swift */,
+			);
+			name = Task;
+			sourceTree = "<group>";
+		};
+		67FD813E1CB6ED4200F1F6B8 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				67E4BFD31C9A4CCF00BE4B10 /* SwipeCell.swift */,
+				6769AB1D1C98A0DC00EB0E5F /* ReorderCell.swift */,
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
+		67FD813F1CB6ED5300F1F6B8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				67FD814E1CB6EEB300F1F6B8 /* Login */,
+				6755D6D61CB0C6320060AE35 /* Menu */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		67FD81401CB6ED6100F1F6B8 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				67E4BFD21C9A4CA000BE4B10 /* App */,
+				6755D6D71CB0C64E0060AE35 /* Globals */,
+				6755D6DE1CB2C8F80060AE35 /* Models */,
+				67FD813E1CB6ED4200F1F6B8 /* Modules */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		67FD81431CB6EDB900F1F6B8 /* Organize */ = {
+			isa = PBXGroup;
+			children = (
+				67FD81411CB6EDB600F1F6B8 /* OrganizeViewController.swift */,
+			);
+			name = Organize;
+			sourceTree = "<group>";
+		};
+		67FD81461CB6EDCE00F1F6B8 /* Task Detail */ = {
+			isa = PBXGroup;
+			children = (
+				67FD81491CB6EE1C00F1F6B8 /* TaskDetailViewController.swift */,
+			);
+			name = "Task Detail";
+			sourceTree = "<group>";
+		};
+		67FD814B1CB6EE3600F1F6B8 /* v1 */ = {
+			isa = PBXGroup;
+			children = (
+				67D3E83B1C6291590060F7E2 /* TableViewController.swift */,
+				67D3E8111C6291250060F7E2 /* Main.storyboard */,
+			);
+			name = v1;
+			sourceTree = "<group>";
+		};
+		67FD814C1CB6EE3C00F1F6B8 /* v2 */ = {
+			isa = PBXGroup;
+			children = (
+				67E4BFD41C9A4CCF00BE4B10 /* SwipeCell.xib */,
+				67DA9CE71CAB328E009FF9BA /* test.storyboard */,
+				67DA9CE51CAB3279009FF9BA /* TableViewController2.swift */,
+				67DA9CE31CAB0D64009FF9BA /* TableViewControllerData.swift */,
+			);
+			name = v2;
+			sourceTree = "<group>";
+		};
+		67FD814D1CB6EE9000F1F6B8 /* other */ = {
+			isa = PBXGroup;
+			children = (
+				67FD814C1CB6EE3C00F1F6B8 /* v2 */,
+				67FD814B1CB6EE3600F1F6B8 /* v1 */,
+				6755D6EB1CB33CB50060AE35 /* failed */,
+			);
 			name = other;
+			sourceTree = "<group>";
+		};
+		67FD814E1CB6EEB300F1F6B8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,7 +423,7 @@
 				67D3E8181C6291250060F7E2 /* LaunchScreen.storyboard in Resources */,
 				67D3E8151C6291250060F7E2 /* Assets.xcassets in Resources */,
 				67E4BFD61C9A4CCF00BE4B10 /* SwipeCell.xib in Resources */,
-				6755D6C91CB094B30060AE35 /* Tasks.storyboard in Resources */,
+				6755D6C91CB094B30060AE35 /* Menu.storyboard in Resources */,
 				67DA9CE81CAB328E009FF9BA /* test.storyboard in Resources */,
 				67D3E8131C6291250060F7E2 /* Main.storyboard in Resources */,
 			);
@@ -365,7 +462,10 @@
 				6755D6D91CB2BEA00060AE35 /* CollapseCell.swift in Sources */,
 				6755D6D31CB0C4D20060AE35 /* Defaults.swift in Sources */,
 				67FD81391CB5829600F1F6B8 /* MenuViewController.swift in Sources */,
+				67FD813B1CB6ECE500F1F6B8 /* SearchViewController.swift in Sources */,
 				6755D6E01CB2C9110060AE35 /* Tag.swift in Sources */,
+				67FD814A1CB6EE1C00F1F6B8 /* TaskDetailViewController.swift in Sources */,
+				67FD81421CB6EDB600F1F6B8 /* OrganizeViewController.swift in Sources */,
 				6755D6DD1CB2C5B60060AE35 /* Task.swift in Sources */,
 				6755D6E61CB2D0020060AE35 /* DataProtocols.swift in Sources */,
 				6755D6C51CB094060060AE35 /* TasksTableViewController.swift in Sources */,
