@@ -23,8 +23,8 @@
 		67D3E8131C6291250060F7E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67D3E8111C6291250060F7E2 /* Main.storyboard */; };
 		67D3E8151C6291250060F7E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67D3E8141C6291250060F7E2 /* Assets.xcassets */; };
 		67D3E8181C6291250060F7E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67D3E8161C6291250060F7E2 /* LaunchScreen.storyboard */; };
-		67D3E8231C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E8221C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift */; };
-		67D3E82E1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E82D1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift */; };
+		67D3E8231C6291250060F7E2 /* NotesAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E8221C6291250060F7E2 /* NotesAppTests.swift */; };
+		67D3E82E1C6291250060F7E2 /* NotesAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E82D1C6291250060F7E2 /* NotesAppUITests.swift */; };
 		67D3E83C1C6291590060F7E2 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E83B1C6291590060F7E2 /* TableViewController.swift */; };
 		67DA9CE41CAB0D64009FF9BA /* TableViewControllerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA9CE31CAB0D64009FF9BA /* TableViewControllerData.swift */; };
 		67DA9CE61CAB3279009FF9BA /* TableViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DA9CE51CAB3279009FF9BA /* TableViewController2.swift */; };
@@ -43,14 +43,14 @@
 			containerPortal = 67D3E8021C6291250060F7E2 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 67D3E8091C6291250060F7E2;
-			remoteInfo = AnimatedReorderAndIndent;
+			remoteInfo = NotesApp;
 		};
 		67D3E82A1C6291250060F7E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67D3E8021C6291250060F7E2 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 67D3E8091C6291250060F7E2;
-			remoteInfo = AnimatedReorderAndIndent;
+			remoteInfo = NotesApp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -67,17 +67,17 @@
 		6755D6E51CB2D0020060AE35 /* DataProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProtocols.swift; sourceTree = "<group>"; };
 		6755D6E71CB319540060AE35 /* InsertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertCell.swift; sourceTree = "<group>"; };
 		6769AB1D1C98A0DC00EB0E5F /* ReorderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReorderCell.swift; sourceTree = "<group>"; };
-		67D3E80A1C6291250060F7E2 /* AnimatedReorderAndIndent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatedReorderAndIndent.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D3E80A1C6291250060F7E2 /* NotesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D3E80D1C6291250060F7E2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67D3E8121C6291250060F7E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		67D3E8141C6291250060F7E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67D3E8171C6291250060F7E2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		67D3E8191C6291250060F7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		67D3E81E1C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimatedReorderAndIndent.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		67D3E8221C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedReorderAndIndentTests.swift; sourceTree = "<group>"; };
+		67D3E81E1C6291250060F7E2 /* NotesApp.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotesApp.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D3E8221C6291250060F7E2 /* NotesAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesAppTests.swift; sourceTree = "<group>"; };
 		67D3E8241C6291250060F7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		67D3E8291C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimatedReorderAndIndent.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		67D3E82D1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedReorderAndIndentUITests.swift; sourceTree = "<group>"; };
+		67D3E8291C6291250060F7E2 /* NotesApp.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotesApp.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D3E82D1C6291250060F7E2 /* NotesAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesAppUITests.swift; sourceTree = "<group>"; };
 		67D3E82F1C6291250060F7E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67D3E83B1C6291590060F7E2 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		67DA9CE31CAB0D64009FF9BA /* TableViewControllerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerData.swift; sourceTree = "<group>"; };
@@ -161,9 +161,9 @@
 		67D3E8011C6291250060F7E2 = {
 			isa = PBXGroup;
 			children = (
-				67D3E80C1C6291250060F7E2 /* AnimatedReorderAndIndent */,
-				67D3E8211C6291250060F7E2 /* AnimatedReorderAndIndentTests */,
-				67D3E82C1C6291250060F7E2 /* AnimatedReorderAndIndentUITests */,
+				67D3E80C1C6291250060F7E2 /* NotesApp */,
+				67D3E8211C6291250060F7E2 /* NotesAppTests */,
+				67D3E82C1C6291250060F7E2 /* NotesAppUITests */,
 				67D3E80B1C6291250060F7E2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -171,39 +171,39 @@
 		67D3E80B1C6291250060F7E2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				67D3E80A1C6291250060F7E2 /* AnimatedReorderAndIndent.app */,
-				67D3E81E1C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */,
-				67D3E8291C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */,
+				67D3E80A1C6291250060F7E2 /* NotesApp.app */,
+				67D3E81E1C6291250060F7E2 /* NotesApp.xctest */,
+				67D3E8291C6291250060F7E2 /* NotesApp.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		67D3E80C1C6291250060F7E2 /* AnimatedReorderAndIndent */ = {
+		67D3E80C1C6291250060F7E2 /* NotesApp */ = {
 			isa = PBXGroup;
 			children = (
 				67FD813F1CB6ED5300F1F6B8 /* Components */,
 				67FD81401CB6ED6100F1F6B8 /* Shared */,
 				67FD814D1CB6EE9000F1F6B8 /* other */,
 			);
-			path = AnimatedReorderAndIndent;
+			path = NotesApp;
 			sourceTree = "<group>";
 		};
-		67D3E8211C6291250060F7E2 /* AnimatedReorderAndIndentTests */ = {
+		67D3E8211C6291250060F7E2 /* NotesAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				67D3E8221C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift */,
+				67D3E8221C6291250060F7E2 /* NotesAppTests.swift */,
 				67D3E8241C6291250060F7E2 /* Info.plist */,
 			);
-			path = AnimatedReorderAndIndentTests;
+			path = NotesAppTests;
 			sourceTree = "<group>";
 		};
-		67D3E82C1C6291250060F7E2 /* AnimatedReorderAndIndentUITests */ = {
+		67D3E82C1C6291250060F7E2 /* NotesAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				67D3E82D1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift */,
+				67D3E82D1C6291250060F7E2 /* NotesAppUITests.swift */,
 				67D3E82F1C6291250060F7E2 /* Info.plist */,
 			);
-			path = AnimatedReorderAndIndentUITests;
+			path = NotesAppUITests;
 			sourceTree = "<group>";
 		};
 		67E4BFD21C9A4CA000BE4B10 /* App */ = {
@@ -319,9 +319,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		67D3E8091C6291250060F7E2 /* AnimatedReorderAndIndent */ = {
+		67D3E8091C6291250060F7E2 /* NotesApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 67D3E8321C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndent" */;
+			buildConfigurationList = 67D3E8321C6291250060F7E2 /* Build configuration list for PBXNativeTarget "NotesApp" */;
 			buildPhases = (
 				67D3E8061C6291250060F7E2 /* Sources */,
 				67D3E8071C6291250060F7E2 /* Frameworks */,
@@ -331,14 +331,14 @@
 			);
 			dependencies = (
 			);
-			name = AnimatedReorderAndIndent;
-			productName = AnimatedReorderAndIndent;
-			productReference = 67D3E80A1C6291250060F7E2 /* AnimatedReorderAndIndent.app */;
+			name = NotesApp;
+			productName = NotesApp;
+			productReference = 67D3E80A1C6291250060F7E2 /* NotesApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		67D3E81D1C6291250060F7E2 /* AnimatedReorderAndIndentTests */ = {
+		67D3E81D1C6291250060F7E2 /* NotesAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 67D3E8351C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndentTests" */;
+			buildConfigurationList = 67D3E8351C6291250060F7E2 /* Build configuration list for PBXNativeTarget "NotesAppTests" */;
 			buildPhases = (
 				67D3E81A1C6291250060F7E2 /* Sources */,
 				67D3E81B1C6291250060F7E2 /* Frameworks */,
@@ -349,14 +349,14 @@
 			dependencies = (
 				67D3E8201C6291250060F7E2 /* PBXTargetDependency */,
 			);
-			name = AnimatedReorderAndIndentTests;
-			productName = AnimatedReorderAndIndentTests;
-			productReference = 67D3E81E1C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */;
+			name = NotesAppTests;
+			productName = NotesAppTests;
+			productReference = 67D3E81E1C6291250060F7E2 /* NotesApp.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		67D3E8281C6291250060F7E2 /* AnimatedReorderAndIndentUITests */ = {
+		67D3E8281C6291250060F7E2 /* NotesAppUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 67D3E8381C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndentUITests" */;
+			buildConfigurationList = 67D3E8381C6291250060F7E2 /* Build configuration list for PBXNativeTarget "NotesAppUITests" */;
 			buildPhases = (
 				67D3E8251C6291250060F7E2 /* Sources */,
 				67D3E8261C6291250060F7E2 /* Frameworks */,
@@ -367,9 +367,9 @@
 			dependencies = (
 				67D3E82B1C6291250060F7E2 /* PBXTargetDependency */,
 			);
-			name = AnimatedReorderAndIndentUITests;
-			productName = AnimatedReorderAndIndentUITests;
-			productReference = 67D3E8291C6291250060F7E2 /* AnimatedReorderAndIndent.xctest */;
+			name = NotesAppUITests;
+			productName = NotesAppUITests;
+			productReference = 67D3E8291C6291250060F7E2 /* NotesApp.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -395,7 +395,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 67D3E8051C6291250060F7E2 /* Build configuration list for PBXProject "AnimatedReorderAndIndent" */;
+			buildConfigurationList = 67D3E8051C6291250060F7E2 /* Build configuration list for PBXProject "NotesApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -408,9 +408,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				67D3E8091C6291250060F7E2 /* AnimatedReorderAndIndent */,
-				67D3E81D1C6291250060F7E2 /* AnimatedReorderAndIndentTests */,
-				67D3E8281C6291250060F7E2 /* AnimatedReorderAndIndentUITests */,
+				67D3E8091C6291250060F7E2 /* NotesApp */,
+				67D3E81D1C6291250060F7E2 /* NotesAppTests */,
+				67D3E8281C6291250060F7E2 /* NotesAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -477,7 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67D3E8231C6291250060F7E2 /* AnimatedReorderAndIndentTests.swift in Sources */,
+				67D3E8231C6291250060F7E2 /* NotesAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,7 +485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67D3E82E1C6291250060F7E2 /* AnimatedReorderAndIndentUITests.swift in Sources */,
+				67D3E82E1C6291250060F7E2 /* NotesAppUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,12 +494,12 @@
 /* Begin PBXTargetDependency section */
 		67D3E8201C6291250060F7E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 67D3E8091C6291250060F7E2 /* AnimatedReorderAndIndent */;
+			target = 67D3E8091C6291250060F7E2 /* NotesApp */;
 			targetProxy = 67D3E81F1C6291250060F7E2 /* PBXContainerItemProxy */;
 		};
 		67D3E82B1C6291250060F7E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 67D3E8091C6291250060F7E2 /* AnimatedReorderAndIndent */;
+			target = 67D3E8091C6291250060F7E2 /* NotesApp */;
 			targetProxy = 67D3E82A1C6291250060F7E2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -611,11 +611,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = AnimatedReorderAndIndent/Info.plist;
+				INFOPLIST_FILE = NotesApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndent;
-				PRODUCT_NAME = AnimatedReorderAndIndent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.NotesApp;
+				PRODUCT_NAME = NotesApp;
 			};
 			name = Debug;
 		};
@@ -623,11 +623,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = AnimatedReorderAndIndent/Info.plist;
+				INFOPLIST_FILE = NotesApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndent;
-				PRODUCT_NAME = AnimatedReorderAndIndent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.NotesApp;
+				PRODUCT_NAME = NotesApp;
 			};
 			name = Release;
 		};
@@ -635,11 +635,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = AnimatedReorderAndIndentTests/Info.plist;
+				INFOPLIST_FILE = NotesAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndentTests;
-				PRODUCT_NAME = AnimatedReorderAndIndent;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AnimatedReorderAndIndent.app/AnimatedReorderAndIndent";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.NotesAppTests;
+				PRODUCT_NAME = NotesApp;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NotesApp.app/NotesApp";
 			};
 			name = Debug;
 		};
@@ -647,22 +647,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = AnimatedReorderAndIndentTests/Info.plist;
+				INFOPLIST_FILE = NotesAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndentTests;
-				PRODUCT_NAME = AnimatedReorderAndIndent;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AnimatedReorderAndIndent.app/AnimatedReorderAndIndent";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.NotesAppTests;
+				PRODUCT_NAME = NotesApp;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NotesApp.app/NotesApp";
 			};
 			name = Release;
 		};
 		67D3E8391C6291250060F7E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = AnimatedReorderAndIndentUITests/Info.plist;
+				INFOPLIST_FILE = NotesAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndentUITests;
-				PRODUCT_NAME = AnimatedReorderAndIndent;
-				TEST_TARGET_NAME = AnimatedReorderAndIndent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.NotesAppUITests;
+				PRODUCT_NAME = NotesApp;
+				TEST_TARGET_NAME = NotesApp;
 				USES_XCTRUNNER = YES;
 			};
 			name = Debug;
@@ -670,11 +670,11 @@
 		67D3E83A1C6291250060F7E2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = AnimatedReorderAndIndentUITests/Info.plist;
+				INFOPLIST_FILE = NotesAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.AnimatedReorderAndIndentUITests;
-				PRODUCT_NAME = AnimatedReorderAndIndent;
-				TEST_TARGET_NAME = AnimatedReorderAndIndent;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eneff.NotesAppUITests;
+				PRODUCT_NAME = NotesApp;
+				TEST_TARGET_NAME = NotesApp;
 				USES_XCTRUNNER = YES;
 			};
 			name = Release;
@@ -682,7 +682,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		67D3E8051C6291250060F7E2 /* Build configuration list for PBXProject "AnimatedReorderAndIndent" */ = {
+		67D3E8051C6291250060F7E2 /* Build configuration list for PBXProject "NotesApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D3E8301C6291250060F7E2 /* Debug */,
@@ -691,7 +691,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		67D3E8321C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndent" */ = {
+		67D3E8321C6291250060F7E2 /* Build configuration list for PBXNativeTarget "NotesApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D3E8331C6291250060F7E2 /* Debug */,
@@ -700,7 +700,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		67D3E8351C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndentTests" */ = {
+		67D3E8351C6291250060F7E2 /* Build configuration list for PBXNativeTarget "NotesAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D3E8361C6291250060F7E2 /* Debug */,
@@ -709,7 +709,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		67D3E8381C6291250060F7E2 /* Build configuration list for PBXNativeTarget "AnimatedReorderAndIndentUITests" */ = {
+		67D3E8381C6291250060F7E2 /* Build configuration list for PBXNativeTarget "NotesAppUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D3E8391C6291250060F7E2 /* Debug */,
