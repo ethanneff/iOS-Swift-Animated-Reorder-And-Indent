@@ -97,7 +97,6 @@ class Util {
     case SMSSent = 1004
     case CalendarAlert = 1005
     case LowPower = 1006
-
   }
 
   class func playSound(systemSound systemSound: SystemSounds) {

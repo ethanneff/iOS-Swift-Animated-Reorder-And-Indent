@@ -123,7 +123,7 @@ class TasksTableViewController: UITableViewController {
         self.toggleComplete(indexPath: indexPath, complete: true)
       }
     }
-    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right1, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "check")), color: Global.colorButton) { (cell) -> () in
+    cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right1, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "cross")), color: Global.colorSubtitle) { (cell) -> () in
       if let indexPath = self.tableView.indexPathForCell(cell) {
         self.toggleComplete(indexPath: indexPath, complete: false)
       }
@@ -143,24 +143,16 @@ class TasksTableViewController: UITableViewController {
     
     // trash
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Right3, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "cross")), color: Global.colorRed) { (cell) -> () in
-      let alert = UIAlertController(title: "Delete Permanently", message: nil, preferredStyle: .Alert)
-      let yes = UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
-        if let indexPath = self.tableView.indexPathForCell(cell) {
-          self.tableViewRemoveRow(indexPath: indexPath)
-        }
-      })
-      let no = UIAlertAction(title: "No", style: .Cancel, handler: { (action) in
-        print("no")
-      })
-      
-      alert.addAction(yes)
-      alert.addAction(no)
-      self.presentViewController(alert, animated: true, completion:nil)
+      if let indexPath = self.tableView.indexPathForCell(cell) {
+        self.toggleRemove(indexPath: indexPath)
+      }
     }
     
     // notification
     cell.addSwipeGesture(swipeGesture: SwipeCell.SwipeGesture.Left3, swipeMode: SwipeCell.SwipeMode.Slide, icon: UIImageView(image: UIImage(named: "clock")), color: Global.colorYellow) { (cell) -> () in
-      print("notification")
+      if let indexPath = self.tableView.indexPathForCell(cell) {
+        self.toggleNotification(indexPath: indexPath)
+      }
     }
   }
   
@@ -194,6 +186,7 @@ class TasksTableViewController: UITableViewController {
   }
   
   internal func gestureRecognizedDoubleTap(sender: UITapGestureRecognizer) {
+    print("doubleTap")
     Util.playSound(systemSound: .Tap)
     let location = sender.locationInView(tableView)
     if let indexPath = tableView.indexPathForRowAtPoint(location) {
@@ -201,8 +194,14 @@ class TasksTableViewController: UITableViewController {
     }
   }
   
+  
   internal func gestureRecognizedSingleTap(sender: UITapGestureRecognizer) {
-    print("single tpa")
+    print("single tap")
+    // TODO: search titles and bodies
+    // TODO: search tags
+    // TODO: add tag
+    // TODO: remove tag
+    
   }
   
   
@@ -216,12 +215,11 @@ class TasksTableViewController: UITableViewController {
     
     // TODO: collpase all
     // TODO: expand all
-    // TODO: add tag
-    // TODO: remove tag
     // TODO: clear completed
     // TODO: clear notifications
     // TODO: view notifications
     // TODO: sound toggle
+    // TODO: change title     navigationItem.title = "AODINA"
   }
   
   @IBAction func leftNavPressed(sender: UIBarButtonItem) {
@@ -346,8 +344,7 @@ class TasksTableViewController: UITableViewController {
     tableViewReloadRow(indexPath: indexPath)
     
     // sound
-    let sound: Util.SystemSounds = (increase) ? .SMSSent : .SMSReceived
-    Util.playSound(systemSound: sound)
+    Util.playSound(systemSound: .SMSSent)
   }
   
   
@@ -428,22 +425,107 @@ class TasksTableViewController: UITableViewController {
       }
     }
     
+    // find new path for parent
+    // remove parent and children (real and view)
+    // insert parent and children (real and view)
+    
+    
     // parent
     parent.completed = complete
     tableViewReloadRow(indexPath: indexPath)
     
     // sound
-    let sound: Util.SystemSounds = (complete) ? .MailSent : .LowPower
-    Util.playSound(systemSound: sound)
+    Util.playSound(systemSound: .MailSent)
   }
   
-  // MARK: - ALERT
+  // MARK: - NOTIFICATION
+  private func toggleNotification(indexPath indexPath: NSIndexPath) {
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+    let today = UIAlertAction(title: "Later Today", style: .Default, handler: { (action) in
+    })
+    let tomorrow = UIAlertAction(title: "This Evening", style: .Default, handler: { (action) in
+    })
+    let weekend = UIAlertAction(title: "This Weekend", style: .Default, handler: { (action) in
+    })
+    let week = UIAlertAction(title: "Next Week", style: .Default, handler: { (action) in
+    })
+    let month = UIAlertAction(title: "In a Month", style: .Default, handler: { (action) in
+    })
+    let someday = UIAlertAction(title: "Someday", style: .Default, handler: { (action) in
+    })
+    let pick = UIAlertAction(title: "Pick Date", style: .Default, handler: { (action) in
+    })
+    let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) in
+    })
+    
+    alert.addAction(today)
+    alert.addAction(tomorrow)
+    alert.addAction(weekend)
+    alert.addAction(week)
+    alert.addAction(month)
+    alert.addAction(someday)
+    alert.addAction(pick)
+    alert.addAction(cancel)
+    
+    week.setValue(UIImage(named: "check"), forKey: "image")
+    presentViewController(alert, animated: true, completion:nil)
+  }
+  
   
   // MARK: - ADD
   private func toggleInsert(indexPath indexPath: NSIndexPath) {
     print("insert",indexPath.row+1)
     
   }
+  
+  // MARK: - REMOVE
+  private func toggleRemove(indexPath indexPath: NSIndexPath) {
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+    let delete = UIAlertAction(title: "Delete", style: .Default, handler: { (action) in
+      self.removeSection(indexPath: indexPath)
+    })
+    let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    alert.addAction(delete)
+    alert.addAction(cancel)
+    presentViewController(alert, animated: true, completion:nil)
+  }
+  
+  private func removeSection(indexPath indexPath: NSIndexPath) {
+    // TODO: better version of INDENT
+    
+    // search children
+    let parent = viewData[indexPath.row]
+    if parent.collapsed {
+      // find parent index
+      var realParentIndex = 0
+      for i in 0..<realData.count {
+        let child = realData[i]
+        if child === parent {
+          realParentIndex = i
+          break
+        }
+      }
+      let realParent = realData[realParentIndex]
+      
+      // remove children from real
+      while true {
+        if realParentIndex+1 >= realData.count {
+          break
+        }
+        
+        let realChild = realData[realParentIndex+1]
+        if realChild.indent <= realParent.indent {
+          break
+        }
+        realData.removeAtIndex(realParentIndex+1)
+      }
+    }
+    
+    // remove parent from real and view
+    realData.removeAtIndex(indexPath.row)
+    tableViewRemoveRow(indexPath: indexPath)
+  }
+  
   
   // MARK: - EDIT
   

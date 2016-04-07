@@ -19,12 +19,11 @@ class TasksTableViewCell: SwipeCell {
     super.awakeFromNib()
   }
   
-  
   func renderData(data data: Task) {
     // indent
-    var indent = " "
+    var indent = ""
     for _ in 0..<data.indent {
-      indent += "      "
+      indent += "     "
     }
     let title = indent + data.title
     // complete

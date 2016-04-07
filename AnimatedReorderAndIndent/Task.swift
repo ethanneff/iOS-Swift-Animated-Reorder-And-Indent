@@ -18,7 +18,7 @@ class Task: NSObject, NSCoding, DataCompleteable, DataCollapsible, DataIndentabl
   var children: Int = 0
   var completed: Bool = false
   override var description: String {
-    return "\(title) | \(indent) | \(children) | \(collapsed)"
+    return "\(title) \(indent) \(collapsed)" // | \(collapsed)"
   }
   
   // INIT
@@ -51,23 +51,6 @@ class Task: NSObject, NSCoding, DataCompleteable, DataCollapsible, DataIndentabl
     var array = [Task]()
     array.append(Task(title: "0", indent: 0)!)
     array.append(Task(title: "1", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    
-    
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
-    array.append(Task(title: "2", indent: 1)!)
     array.append(Task(title: "2", indent: 1)!)
     array.append(Task(title: "3", indent: 2)!)
     array.append(Task(title: "4", indent: 3)!)
@@ -124,19 +107,19 @@ class Task: NSObject, NSCoding, DataCompleteable, DataCollapsible, DataIndentabl
     array.append(Task(title: "7.2.1", indent: 2)!)
     array.append(Task(title: "7.2.2", indent: 2)!)
     array.append(Task(title: "9.0.0", indent: 0)!)
-    array.append(Task(title: "9.1.0", indent: 0)!)
-    array.append(Task(title: "9.1.1", indent: 0)!)
-    array.append(Task(title: "9.1.2", indent: 0)!)
-    array.append(Task(title: "9.1.3", indent: 0)!)
-    array.append(Task(title: "9.2.0", indent: 0)!)
-    array.append(Task(title: "9.0.0", indent: 0)!)
-    array.append(Task(title: "9.0.0", indent: 0)!)
-    array.append(Task(title: "9.1.0", indent: 0)!)
-    array.append(Task(title: "9.1.1", indent: 0)!)
-    array.append(Task(title: "9.1.2", indent: 0)!)
-    array.append(Task(title: "9.1.3", indent: 0)!)
-    array.append(Task(title: "9.2.0", indent: 0)!)
-    array.append(Task(title: "9.0.0", indent: 0)!)
+//    array.append(Task(title: "9.1.0", indent: 0)!)
+//    array.append(Task(title: "9.1.1", indent: 0)!)
+//    array.append(Task(title: "9.1.2", indent: 0)!)
+//    array.append(Task(title: "9.1.3", indent: 0)!)
+//    array.append(Task(title: "9.2.0", indent: 0)!)
+//    array.append(Task(title: "9.0.0", indent: 0)!)
+//    array.append(Task(title: "9.0.0", indent: 0)!)
+//    array.append(Task(title: "9.1.0", indent: 0)!)
+//    array.append(Task(title: "9.1.1", indent: 0)!)
+//    array.append(Task(title: "9.1.2", indent: 0)!)
+//    array.append(Task(title: "9.1.3", indent: 0)!)
+//    array.append(Task(title: "9.2.0", indent: 0)!)
+    array.append(Task(title: "envision who you want to become in 2 minutes", indent: 0)!)
     return array
   }
   
